@@ -61,6 +61,5 @@ public class App
         System.out.println(org.apache.commons.lang3.math.NumberUtils.isDigits(s));
         System.out.println(org.apache.commons.lang3.math.NumberUtils.isNumber(s));
 
-
     }
 }
