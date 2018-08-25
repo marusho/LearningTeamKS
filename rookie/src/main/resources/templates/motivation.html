@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>Spring Boot Sample Site</title>
+<link href="../static/css/motivation.css" th:href="@{/css/motivation.css}"
+ 	rel="stylesheet">
+<link href="../static/css/common.css" th:href="@{/css/common.css}"
+	rel="stylesheet">
+<link href="../static/css/sampleCss.css" th:href="@{/css/sampleCss.css}"  rel="stylesheet">
+<link rel="stylesheet" media="all"
+ 	th:href="@{/webjars/bootstrap/3.3.1/css/bootstrap.min.css}" />
+<script type="text/javascript">
+ 	function main() {
+ 		// 入力ボックスの値を取得
+ 		var str = document.select.companyMotivation.value;
+ 		// 結果表示
+ 		alert(str);
+ 	}
+</script>
+</head>
+<body>
+ 	<script src="https://code.jquery.com/jquery-3.3.1.js"
+ 		integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+ 		crossorigin="anonymous"></script>
+ 	<div th:replace="layout :: header"></div>
+ 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+ 		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+ 		crossorigin="anonymous"></script>
+ 	<script
+ 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+ 		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+ 		crossorigin="anonymous"></script>
+ 	<script
+ 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+ 	<script th:src="@{forAjaxJs/jquery.cookie.js}"></script>
+ 	<h1>モチベーション一括編集</h1>
+ 	<form action="/editmotivation" th:action="@{/editmotivation}"
+ 		method="post">
+ 		<!-- テーブルに枠線をつける -->
+ 		<table border="1">
+ 			<tr>
+ 				<td class="sticky" colspan="1"></td>
+ 				<td colspan="5" align="center" th:text="${yearMonth1}">
+ 				<td colspan="5" align="center" th:text="${yearMonth2}">
+ 				<td colspan="5" align="center" th:text="${yearMonth3}">
+ 				<td colspan="5" align="center" th:text="${yearMonth4}">
+ 				<td colspan="5" align="center" th:text="${yearMonth5}">
+ 				<td colspan="5" align="center" th:text="${yearMonth6}">
+ 				<td colspan="5" align="center" th:text="${yearMonth7}">
+ 				</td>
+ 			</tr>
+ 			<tr>
+ 				<td class="sticky">ユーザー名</td>
+ 				<td>会社へのモチベーション</td>
+ 				<td>業務へのモチベーション</td>
+ 				<td>退社懸念</td>
+ 				<td>面談日</td>
+ 				<td>コメント</td>
+ 				<td>会社へのモチベーション</td>
+ 				<td>業務へのモチベーション</td>
+ 				<td>退社懸念</td>
+ 				<td>面談日</td>
+ 				<td>コメント</td>
+ 				<td>会社へのモチベーション</td>
+ 				<td>業務へのモチベーション</td>
+ 				<td>退社懸念</td>
+ 				<td>面談日</td>
+ 				<td>コメント</td>
+ 				<td>会社へのモチベーション</td>
+ 				<td>業務へのモチベーション</td>
+ 				<td>退社懸念</td>
+ 				<td>面談日</td>
+ 				<td>コメント</td>
+ 				<td>会社へのモチベーション</td>
+ 				<td>業務へのモチベーション</td>
+ 				<td>退社懸念</td>
+ 				<td>面談日</td>
+ 				<td>コメント</td>
+ 				<td>会社へのモチベーション</td>
+ 				<td>業務へのモチベーション</td>
+ 				<td>退社懸念</td>
+ 				<td>面談日</td>
+ 				<td>コメント</td>
+ 				<td>会社へのモチベーション</td>
+ 				<td>業務へのモチベーション</td>
+ 				<td>退社懸念</td>
+ 				<td>面談日</td>
+ 				<td>コメント</td>
+ 			</tr>
+ 			<tr th:each="obj, stat : ${formModel}">
+ 				<td class="sticky" id="userName" th:text="${obj.userName}"></td>
+ 				
+ 				<!-- 今月分 -->
+ 				<input type="hidden"
+ 					th:class="'motivationId-' + ${obj.motivationId1}"
+ 					th:value="${obj.motivationId1}">
+ 				<input type="hidden" th:id="userId" th:value="${obj.userId}">
+ 				<td><select
+ 					th:class="'companyMotivation-' + ${obj.motivationId1}"
+ 					name="companyMotivation1">
+ 						 <option value="---">---</option> 
+ 						<option th:each="item:${companyMotivation}"
+ 							th:value="${item.value}" th:text="${item.value}"
+ 							th:selected="${item.value}==${obj.companyMotivation1}">SingleSelect</option>
+ 				</select></td>
+ 				<td><select th:class="'jobMotivation-' + ${obj.motivationId1}"
+ 					name="jobMotivation1">
+ 						<option value="---">---</option>
+ 						<option th:each="item:${jobMotivation}" th:value="${item.value}"
+ 							th:text="${item.value}"
+ 							th:selected="${item.value}==${obj.jobMotivation1}">SingleSelect</option>
+ 				</select></td>
+ 				<td><input type="checkbox"
+ 					th:class="'retireRisk-' + ${obj.motivationId1}"
+ 					th:checked="${obj.retireRisk1}"></td>
+ 				<td><input type="date" th:class="'interviewDate-' + ${obj.motivationId1}"
+ 					th:value="${obj.interviewDate1}"></td>
+ 				<td><textarea class="comment" name="comment1" cols="40"
+ 					 th:class="'comment-' + ${obj.motivationId1}"
+ 					th:text="${obj.comment1}"></textarea></td>
+ 					
+ 				 <!-- 1ヶ月前 -->
+ 				<input type="hidden"
+ 					th:class="'motivationId-' + ${obj.motivationId2}"
+ 					th:value="${obj.motivationId2}">
+ 				<td><select
+ 					th:class="'companyMotivation-' + ${obj.motivationId2}"
+ 					name="companyMotivation2">
+ 						<option value="---">---</option>
+ 						<option th:each="item:${companyMotivation}"
+ 							th:value="${item.value}" th:text="${item.value}"
+ 							th:selected="${item.value}==${obj.companyMotivation2}"
+ 							th:disabled="${obj.motivationId2} == '0'">SingleSelect</option>
+ 				</select></td>
+ 				<td><select th:class="'jobMotivation-' + ${obj.motivationId2}"
+ 					name="jobMotivation2" >
+ 						<option value="---">---</option>
+ 						<option th:each="item:${jobMotivation}" th:value="${item.value}"
+ 							th:text="${item.value}"
+ 							th:selected="${item.value}==${obj.jobMotivation2}"
+ 							th:disabled="${obj.motivationId2} == '0'">SingleSelect</option>
+ 				</select></td>
+ 				<td><input type="checkbox"
+ 					th:class="'retireRisk-' + ${obj.motivationId2}"
+ 					th:checked="${obj.retireRisk2}"
+ 					th:disabled="${obj.motivationId2} == '0'"></td>
+ 				<td><input type="date" th:class="'interviewDate-' + ${obj.motivationId2}"
+ 					th:value="${obj.interviewDate2}"
+ 					th:disabled="${obj.motivationId2} == '0'"></td>
+ 				<td><textarea class="comment" name="comment2" cols="40"
+ 					 th:class="'comment-' + ${obj.motivationId2}"
+ 					th:text="${obj.comment2}"
+ 					th:readonly="${obj.motivationId2} == '0'"></textarea></td>
+ 					
+ 				<!-- 2ヶ月前 --> 
+ 				<input
+ 					type="hidden" th:class="'motivationId-' + ${obj.motivationId3}"
+ 					th:value="${obj.motivationId3}">
+ 				<td><select
+ 					th:class="'companyMotivation-' + ${obj.motivationId3}"
+ 					name="companyMotivation3">
+ 						<option value="---">---</option>
+ 						<option th:each="item:${companyMotivation}"
+ 							th:value="${item.value}" th:text="${item.value}"
+ 							th:selected="${item.value}==${obj.companyMotivation3}"
+ 							th:disabled="${obj.motivationId3} == '0'">SingleSelect</option>
+ 				</select></td>
+ 				<td><select th:class="'jobMotivation-' + ${obj.motivationId3}"
+ 					name="jobMotivation3">
+ 						<option value="---">---</option>
+ 						<option th:each="item:${jobMotivation}" th:value="${item.value}"
+ 							th:text="${item.value}"
+ 							th:selected="${item.value}==${obj.jobMotivation3}"
+ 							th:disabled="${obj.motivationId3} == '0'">SingleSelect</option>
+ 				</select></td>
+ 				<td><input type="checkbox"
+ 					th:class="'retireRisk-' + ${obj.motivationId3}"
+ 					th:checked="${obj.retireRisk3}"
+ 					th:disabled="${obj.motivationId3} == '0'"></td>
+ 				<td><input type="date" th:class="'interviewDate-' + ${obj.motivationId3}"
+ 					th:value="${obj.interviewDate3}"
+ 					th:disabled="${obj.motivationId3} == '0'"></td>
+ 				<td><textarea class="comment" name="comment3" cols="40"　
+ 					 th:class="'comment-' + ${obj.motivationId3}"
+ 					th:text="${obj.comment3}"
+ 					th:readonly="${obj.motivationId3} == '0'"></textarea>
+ 					
+ 				<!-- 3ヶ月前 -->
+ 				<input type="hidden" th:class="'motivationId-' + ${obj.motivationId4}"
+ 					th:value="${obj.motivationId4}">
+ 				<td><select
+ 					th:class="'companyMotivation-' + ${obj.motivationId4}"
+ 					name="companyMotivation4">
+ 						<option value="---">---</option>
+ 						<option th:each="item:${companyMotivation}"
+ 							th:value="${item.value}" th:text="${item.value}"
+ 							th:selected="${item.value}==${obj.companyMotivation4}"
+ 							th:disabled="${obj.motivationId4} == '0'">SingleSelect</option>
+ 				</select></td>
+ 				<td><select th:class="'jobMotivation-' + ${obj.motivationId4}"
+ 					name="jobMotivation4">
+ 						<option value="---">---</option>
+ 						<option th:each="item:${jobMotivation}" th:value="${item.value}"
+ 							th:text="${item.value}"
+ 							th:selected="${item.value}==${obj.jobMotivation4}"
+ 							th:disabled="${obj.motivationId4} == '0'">SingleSelect</option>
+ 				</select></td>
+ 				<td><input type="checkbox"
+ 					th:class="'retireRisk-' + ${obj.motivationId4}"
+ 					th:checked="${obj.retireRisk4}"
+ 					th:disabled="${obj.motivationId4} == '0'"></td>
+ 				<td><input type="date" th:class="'interviewDate-' + ${obj.motivationId4}"
+ 					th:value="${obj.interviewDate4}"
+ 					th:disabled="${obj.motivationId4} == '0'"></td>
+ 				<td><textarea class="comment" name="comment4" cols="40"　
+ 					 th:class="'comment-' + ${obj.motivationId4}"
+ 					th:text="${obj.comment4}"
+ 					th:readonly="${obj.motivationId4} == '0'"></textarea>
+ 					
+ 				<!-- 4ヶ月前 -->
+ 				<input type="hidden"
+ 					th:class="'motivationId-' + ${obj.motivationId5}"
+ 					th:value="${obj.motivationId5}">
+ 				<td><select
+ 					th:class="'companyMotivation-' + ${obj.motivationId5}"
+ 					name="companyMotivation5">
+ 						<option value="---">---</option>
+ 						<option th:each="item:${companyMotivation}"
+ 							th:value="${item.value}" th:text="${item.value}"
+ 							th:selected="${item.value}==${obj.companyMotivation5}"
+ 							th:disabled="${obj.motivationId5} == '0'">SingleSelect</option>
+ 				</select></td>
+ 				<td><select th:class="'jobMotivation-' + ${obj.motivationId5}"
+ 					name="jobMotivation5">
+ 						<option value="---">---</option>
+ 						<option th:each="item:${jobMotivation}" th:value="${item.value}"
+ 							th:text="${item.value}"
+ 							th:selected="${item.value}==${obj.jobMotivation5}"
+ 							th:disabled="${obj.motivationId5} == '0'">SingleSelect</option>
+ 				</select></td>
+ 				<td><input type="checkbox"
+ 					th:class="'retireRisk-' + ${obj.motivationId5}"
+ 					th:checked="${obj.retireRisk5}"
+ 					th:disabled="${obj.motivationId5} == '0'"></td>
+ 				<td><input type="date" th:class="'interviewDate-' + ${obj.motivationId5}"
+ 					th:value="${obj.interviewDate5}"
+ 					th:disabled="${obj.motivationId5} == '0'"></td>
+ 				<td><textarea class="comment" name="comment5" cols="40"　
+ 					 th:class="'comment-' + ${obj.motivationId5}"
+ 					th:text="${obj.comment5}"
+ 					th:readonly="${obj.motivationId5} == '0'"></textarea>
+ 				<!-- 5ヶ月前 -->
+ 				<input type="hidden"
+ 					th:class="'motivationId-' + ${obj.motivationId6}"
+ 					th:value="${obj.motivationId6}">
+ 				<td><select
+ 					th:class="'companyMotivation-' + ${obj.motivationId6}"
+ 					name="companyMotivation6">
+ 						<option value="---">---</option>
+ 						<option th:each="item:${companyMotivation}"
+ 							th:value="${item.value}" th:text="${item.value}"
+ 							th:selected="${item.value}==${obj.companyMotivation6}"
+ 							th:disabled="${obj.motivationId6} == '0'">SingleSelect</option>
+ 				</select></td>
+ 				<td><select th:class="'jobMotivation-' + ${obj.motivationId6}"
+ 					name="jobMotivation6">
+ 						<option value="---">---</option>
+ 						<option th:each="item:${jobMotivation}" th:value="${item.value}"
+ 							th:text="${item.value}"
+ 							th:selected="${item.value}==${obj.jobMotivation6}"
+ 							th:disabled="${obj.motivationId6} == '0'">SingleSelect</option>
+ 				</select></td>
+ 				<td><input type="checkbox"
+ 					th:class="'retireRisk-' + ${obj.motivationId6}"
+ 					th:checked="${obj.retireRisk6}"
+ 					th:disabled="${obj.motivationId6} == '0'"></td>
+ 				</td>
+ 				<td><input type="date" th:class="'interviewDate-' + ${obj.motivationId6}"
+ 					th:value="${obj.interviewDate6}"
+ 					th:disabled="${obj.motivationId6} == '0'"></td>
+ 				<td><textarea class="comment" name="comment6" cols="40"
+ 					 th:class="'comment-' + ${obj.motivationId6}"
+ 					th:text="${obj.comment6}"
+ 					th:readonly="${obj.motivationId6} == '0'"></textarea>
+ 				<!-- 6ヶ月前 -->
+ 				<td><select
+ 					th:class="'companyMotivation-' + ${obj.motivationId7}"
+ 					name="companyMotivation7">
+ 						<option value="---">---</option>
+ 						<option th:each="item:${companyMotivation}"
+ 							th:value="${item.value}" th:text="${item.value}"
+ 							th:selected="${item.value}==${obj.companyMotivation7}"
+ 							th:disabled="${obj.motivationId7} == '0'">SingleSelect</option>
+ 				</select></td>
+ 				<td><select th:class="'jobMotivation-' + ${obj.motivationId7}"
+ 					name="jobMotivation7">
+ 						<option value="---">---</option>
+ 						<option th:each="item:${jobMotivation}" th:value="${item.value}"
+ 							th:text="${item.value}"
+ 							th:selected="${item.value}==${obj.jobMotivation7}"
+ 							th:disabled="${obj.motivationId7} == '0'">SingleSelect</option>
+ 				</select></td>
+ 				<input type="hidden"
+ 					th:class="'motivationId-' + ${obj.motivationId7}"
+ 					th:value="${obj.motivationId7}">
+ 				<td><input type="checkbox"
+ 					th:class="'retireRisk-' + ${obj.motivationId7}"
+ 					th:checked="${obj.retireRisk7}"
+ 					th:disabled="${obj.motivationId7} == '0'"></td>
+ 				<td><input type="date" th:class="'interviewDate-' + ${obj.motivationId7}"
+ 					th:value="${obj.interviewDate7}"
+ 					th:disabled="${obj.motivationId7} == '0'"></td>
+ 				<td><textarea class="comment" name="comment7" cols="40"　
+ 					 th:class="'comment-' + ${obj.motivationId7}"
+ 					th:text="${obj.comment7}"
+ 					th:readonly="${obj.motivationId7} == '0'"></textarea>
+ 			</tr>
+ 		</table>
+ 	</form>
+ 	<script th:inline="javascript" th:src="@{js/motiv.js}">	
+ 	</script>
+ 
+</body>
+</html>

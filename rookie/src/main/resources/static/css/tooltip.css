@@ -1,0 +1,55 @@
+/*
+ * Copyright © Web’Notes, ALL rights reserved.
+ * http://webnonotes.com/css/tooltip/trackback
+ */
+@charset "UTF-8";
+
+/* �\�������̑��� */
+div.tooltip1 {
+	color: #555;
+	display: inline-block; /* �C�����C���v�f�� */
+}
+
+/* �c�[���`�b�v�������B�� */
+div.tooltip1 p {
+	display: none;
+}
+
+/* �}�E�X�I�[�o�[ */
+div.tooltip1:hover {
+	position: relative;
+	color: #333;
+}
+
+/* �}�E�X�I�[�o�[���Ƀc�[���`�b�v��\�� */
+div.tooltip1:hover p {
+	display: block; /* �{�b�N�X�v�f�ɂ��� */
+	position: absolute; /* relative����̐�Έʒu */
+	top: 25px;
+	left: 0px;
+	font-size: 90%;
+	color: #fff;
+	background-color: #51A2C1;
+	width: 205px;
+	padding: 5px;
+	border-radius: 3px;
+	z-index: 100;
+}
+
+/* �t�L�_�V�������쐬 */
+div.tooltip1 p:before {
+	content: '';
+	display: block;
+	position: absolute; /* relative����̐�Έʒu */
+	height: 0;
+	width: 0;
+	top: -13px;
+	left: 5px;
+	border: 13px transparent solid;
+	border-right-width: 0;
+	border-left-color: #51A2C1;
+	transform: rotate(270deg); /* �X�������� */
+	-webkit-transform: rotate(270deg);
+	-o-transform: rotate(270deg);
+	z-index: 100;
+}

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" th:href="@{/webjars/bootstrap/3.3.1/css/bootstrap.min.css}" />
+ 		<link href="../static/css/common.css" th:href="@{/css/common.css}"  rel="stylesheet">
+  <title>Spring Boot Sample Site</title>
+   <link href="../static/css/sampleCss.css" th:href="@{/css/sampleCss.css}"  rel="stylesheet">
+ </head>
+ <body>
+  <div th:replace="layout :: header"></div>
+ 
+  <h1>Info</h1>
+  	<table>
+  		<tr><td>
+  		 	<h3>Name</h3>
+  		 </td></tr>
+  		 <tr><td>
+  		 	<p th:text=${userName}></p>	
+  		 </td></tr>
+  		 <tr><td>
+  		 	<h3>Gender</h3>
+  		 </td></tr>
+  		 <tr><td>
+  		 	<p th:text=${gender}></p>	
+  		 </td></tr> 
+  		 <tr><td>
+  		 	<h3>Department</h3>
+  		 </td></tr>
+		 <tr th:each="obj : ${orgData}">
+		 <td th:text="${obj}"></td>
+		</tr>
+		<tr><td><h3>Project</h3></td></tr>
+		<tr th:each="obj : ${projData}"><td th:text="${obj}"></td></tr>
+		<tr><td>
+  		 	<h3>BirthDay</h3>
+  		 </td></tr>
+		<tr><td>
+  		 	<p th:text=${birthDate}></p>	
+  		 </td></tr> 
+  		 <tr><td>
+  		 	<h3>from When</h3>
+  		 </td></tr>
+  		<tr><td>
+  		 	<p th:text=${enterDate}></p>	
+  		 </td></tr>
+  		 <tr><td>
+  		 	<h3>to When</h3>
+  		 </td></tr>
+  		 <tr><td>
+  		 	<p th:text=${leaveDate}></p>	
+  		 </td></tr>
+  		 <tr><td>
+  		 	<h3>Engineer Level</h3>
+  		 </td></tr>
+  		 <tr><td>
+  		 	<p th:text=${engineerLevel}></p>	
+  		 </td></tr>
+		
+		</table>
+	
+ 
+  
+ 
+  <div th:replace="layout :: footer"></div>
+ </body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+    	xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<link rel="stylesheet" media="all" th:href="@{/webjars/bootstrap/3.3.1/css/bootstrap.min.css}" />
+ 		<link href="../static/css/common.css" th:href="@{/css/common.css}"  rel="stylesheet">
+		<title>Spring Boot Sample Site</title>
+				<link href="../static/css/sampleCss.css" th:href="@{/css/sampleCss.css}"  rel="stylesheet">
+	</head>
+	<body>
+		<div th:replace="layout :: header"></div>
+		
+		<h1>Users</h1>
+		<ul>
+   		<form action="/page" th:action="@{/page}" method="get">
+   		<!-- <table class="table"> -->
+		<table class=showInfo th:inline="text">
+
+			<tr>
+				<td>Name
+					<input type="text" name="userName">
+ 				</td>
+			</tr>
+			<tr>
+				<td>DepartmentName
+					<input type="text" name="departmentName">
+				</td>
+			</tr>
+			<tr>
+				<td>ProjectName
+					<input type="text" name="projectName">
+				</td>
+			</tr>
+			<tr><td>Gender<select name="gender">
+				<option value="">--</option>
+				<option value="男性">男性</option>
+				<option value="女性">女性</option>
+			</select>
+			</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="submit" value="Search">
+				</td>
+			</tr>
+			</table>
+			<table class="table table-hover">
+			<tr><td><h3>ID　</h3></td>
+				<td><h3>Name　</h3></td>
+				<td><h3>Infomation　</h3></td>
+				<td><h3>Edit　</h3></td>
+				<td><h3>Delete　</h3></td>
+				<td><h3>CareerVisionInfo　</h3></td>
+				<td><h3>CareerVisionEdit　</h3></td>
+				<td><h3>Evaluation　</h3></td>
+			</tr>
+			<tr th:each="obj : ${datalist}">
+			<td th:text="${obj.userId}"></td>
+			<td th:text="${obj.userName}"></td>
+			<td><a th:href="@{/info/{userId}(userId=${obj.userId})}">Info</a></td>
+			<td><a th:href="@{/edit/{userId}(userId=${obj.userId})}">Edit</a></td>
+			<td><a th:href="@{/delete/{userId}(userId=${obj.userId})}">Delete</a></td>
+			<td><a th:href="@{/CareerVisionShow/{userId}(userId=${obj.userId}) }" target="_blank" >CareerVisionInfo</a></td>
+			<td><a th:href="@{/CareerVisionEdit/{userId}(userId=${obj.userId})}" target="_blank" >CareerVisionEdit</a></td>
+			<td><a th:href="@{/evaluation/{userId}(userId=${obj.userId})}">Evaluation</a></td>
+			</tr>
+			<tr><td>
+			<p th:unless="${listSize}" class="NoData">
+			NO DATA
+			</p>
+			</td></tr>
+		</table>
+
+		</ul>
+		</form>
+		
+		<div th:if="${listSize}" th:with="s=${listSize}">
+			
+			<p th:unless="${s==1}">
+			<ul>
+			
+			<li th:each='i : ${#numbers.sequence(0, datalist.totalPages-1)}' th:class="(${i}==${datalist.getNumber()})? 'active' : ''" style="display:inline">
+                    <span th:if='${i}==${datalist.getNumber()}' th:text='${i+1}'>1</span>
+                    <a th:if='${i}!=${datalist.getNumber()}' th:href="@{/page?size=20&page={i}&userName={name}&departmentName={departmentName}&projectName={projectName}&gender={gender}(i=${i},name=${name},departmentName=${departmentName},projectName=${projectName},gender=${thisGender})}">
+                        <span th:text='${i+1}'>1</span>
+                       </a>
+                       
+                    
+                </li>
+                </ul>
+		</div> 
+	
+    	<form action="#" th:action="@{/login}" method="POST">
+   			<input type="submit" value="Sign out" />
+		</form>
+		<div th:replace="layout :: footer"></div>	
+	</body>
+</html>

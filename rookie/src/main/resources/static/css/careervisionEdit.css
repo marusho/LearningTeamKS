@@ -1,0 +1,140 @@
+@charset "UTF-8";
+.button {
+	display: inline-block;
+	padding: .5em 1em;
+	border-radius: 2px;
+	height: 50px;
+	/* text-align: center; */
+	vertical-align: middle;
+	color: #eff;
+	background-color: #89c3eb;
+	cursor: pointer;
+	/* overflow: scroll; */
+	
+}
+.button2 {
+	display: inline-block;
+	padding: .5em 1em;
+	border-radius: 2px;
+	height: 50px;
+	/* text-align: center; */
+	vertical-align: middle;
+	color: #eff;
+	background-color: #2971e9;
+	cursor: pointer;
+	/* overflow: scroll; */
+	
+}
+.column {
+	display: inline-block;
+	padding: .5em 1em;
+	border-radius: 4px;
+	height: 80px;
+	/* text-align: center; */
+	vertical-align: middle;
+	color: #eff;
+	background-color: #2971e9;
+	cursor: pointer;
+	/* overflow: scroll; */
+	
+}
+.button:hover {
+	background-color: #84a2d4;
+}
+
+.button:disabled {
+	cursor: not-allowed;
+	opacity: .6;
+	color: #2a83a2;
+}
+
+.toggle-buttons {
+	display: flex;
+}
+
+.toggle-buttons label {
+	display: flex;
+	position: relative;
+}
+
+.toggle-buttons [type=checkbox] {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+/* appearance: none; for IE11 */
+_:-ms-lang(x)::-ms-backdrop, .toggle-buttons [type=radio], _:-ms-lang(x)::-ms-backdrop,
+	.toggle-buttons [type=checkbox] {
+	visibility: hidden;
+}
+
+.toggle-buttons .button {
+	z-index: 1;
+}
+
+.toggle-buttons :checked+.button {
+	background-color: #2ca9e1;
+}
+
+.toggle-buttons :disabled+.button {
+	cursor: not-allowed;
+	opacity: .6;
+	color: #def;
+}
+
+.whoAreYou {
+	font-weight: bolder;
+	font-size: 14px;
+}
+
+.whoAreYou th {
+	font-size: 24px;
+}
+
+.careerVision {
+	font-weight: bolder;
+	font-size: 48px;
+}
+
+.row {
+	font-size: 14px;
+	vertical-align: middle;
+	height: 80px; /*28から50へ*/
+	margin-top: 20px;
+	border: hidden;
+}
+
+.myEssentials {
+	font-size: 18px;
+	margin-top: 15px;
+}
+
+.toWant {
+	font-size: 18px;
+	margin-top: 30px;
+}
+
+.myVisions {
+	font-size: 18px;
+	margin-top: 30px;
+}
+
+input#submit_button {
+	float: right;
+	width: 97px;
+	height: 25px;
+	margin-left: 10px;
+}
+
+button.btn btn-info {
+	float: right;
+}
+
+h2 {
+	border-bottom: solid 3px #75A9FF;
+}

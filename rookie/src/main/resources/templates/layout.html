@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<th:block th:replace="${links}" />
+
+
+<header th:fragment="header">
+	<dl>
+		<dt>Menu</dt>
+		<dd>
+			<a
+				th:href="@{/page?size=&page=0&userName=&departmentName=&projectName=&gender=}">Top
+				Page</a>
+		</dd>
+		<dd>
+			<a th:href="@{/create}">New User</a>
+		</dd>
+		<dd>
+			<a th:href="@{/change}">Change Password</a>
+		</dd>
+		<dd>
+			<a th:href="@{/evaluations}">Evaluation Sheet</a>
+		</dd>
+		<dd>
+			<a th:href="@{/editmotivation}">Motivation Edit</a>
+		</dd>
+	</dl>
+</header>
+
+<footer th:fragment="footer">
+	<p>Copyright ©Team18. All Rights Reserved.</p>
+</footer>
+</html>
+

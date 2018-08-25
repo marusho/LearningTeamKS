@@ -1,0 +1,671 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<!-- スタイルシート読み込み -->
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.css" />
+<link href="../static/css/common.css" th:href="@{/css/common.css}"
+	rel="stylesheet">
+<link href="../static/css/sampleCss.css" th:href="@{/css/sampleCss.css}"
+	rel="stylesheet">
+<link href="../static/css/select.css" th:href="@{/css/select.css}"
+	rel="stylesheet">
+
+<!-- Js読み込み -->
+<script th:src="@{js/jquery-3.3.1.min.js}"></script>
+
+<script
+	src="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.js"></script>
+
+
+
+
+<title></title>
+<style>
+table {
+	border: 2px #808080 solid;
+	height: 700px;
+	table-layout: fixed;
+	word-break: break-all;
+	　 word-wrap: break-all;
+}
+
+th, td {
+	border: 2px #808080 solid;
+	width: 300px !important;
+	height: 100px;
+	font-size: 10px;
+}
+
+tbody {
+	height: 600px;
+}
+
+.tate {
+	height: 200px;
+	writing-mode: tb-rl;
+	-webkit-writing-mode: vertical-rl;
+}
+</style>
+</head>
+<body>
+	<!-- JQueryで使うデータを保存 -->
+	<form>
+		<input id="year1" type="hidden" th:value="${year1}"></input> <input
+			id="year2" type="hidden" th:value="${year2}"></input> <input
+			id="year3" type="hidden" th:value="${year3}"></input> <input
+			id="term1" type="hidden" th:value="${term1}"></input> <input
+			id="term2" type="hidden" th:value="${term2}"></input> <input
+			id="term3" type="hidden" th:value="${term3}"></input>
+	</form>
+	<div th:replace="layout :: header"></div>
+	<h1>評価シート</h1>
+	<div class="box25">
+		<span class="box-title25">表示させたい項目にチェックを入れてください</span>
+<!-- 選択した項目のみ表示 -->
+		<div class="div_class">
+			<p>
+				<input type="checkbox" name="check1" value="prop" id="button1"
+					checked class="showOn1">成果 <input type="checkbox"
+					name="check2" value="prop" id="button2" checked class="showOn2">能力
+				<input type="checkbox" name="check3" value="prop" id="button3"
+					checked class="showOn3">情意
+			</p>
+		</div>
+	</div>
+
+	<div style="overflow-x: scroll; height: 800px;">
+		<!-- 一つめのタブ -->
+		<div id="j-tab">
+			<section>
+				<h1 class="selected" th:text="${termLatest}"></h1>
+				<div>
+					<a id="latest1">CSVでダウンロード</a>
+					<div>
+						名前 <input id="nameSearch" type="text"></input>
+					</div>
+					<div>
+						エンジニアレベル <input id="eLevel" type="text"></input>
+					</div>
+					<div>
+						チーム <input id="teamSearch" type="text"></input>
+					</div>
+					<table id="results">
+						<thead id="top">
+							<tr>
+								<td colspan="3"></td>
+								<td colspan="3">前提事項</td>
+								<td class="achievementColumn" colspan="6">成果</td>
+								<td class="abilityColumn" colspan="8">能力</td>
+								<td class="passionColumn" colspan="7">情意</td>
+								<td></td>
+								<td class="achievementColumn" colspan="6">成果</td>
+								<td class="abilityColumn" colspan="8">能力</td>
+								<td class="passionColumn" colspan="7">情意</td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<th><p class="tate">ユーザー</p></th>
+								<th><p class="tate">エンジニアレベル</p></th>
+								<th><p class="tate">チーム</p></th>
+								<th><p class="tate">シアトル会への出席</p></th>
+								<th><p class="tate">勤怠</p></th>
+								<th><p class="tate">セキュリティ事故</p></th>
+								<th class="achievementColumn"><p class="tate">お客様満足度</p></th>
+								<th class="achievementColumn"><p class="tate">コミットメント</p></th>
+								<th class="achievementColumn"><p class="tate">提案</p></th>
+								<th class="achievementColumn"><p class="tate">社内コミュニケーション</p></th>
+								<th class="achievementColumn"><p class="tate">人材育成</p></th>
+								<th class="achievementColumn"><p class="tate">成果合計</p></th>
+								<th class="abilityColumn"><p class="tate">ITスキル</p></th>
+								<th class="abilityColumn"><p class="tate">業務理解力</p></th>
+								<th class="abilityColumn"><p class="tate">コミュニケーション力</p></th>
+								<th class="abilityColumn"><p class="tate">リーダーシップ</p></th>
+								<th class="abilityColumn"><p class="tate">課題解決力</p></th>
+								<th class="abilityColumn"><p class="tate">専門力</p></th>
+								<th class="abilityColumn"><p class="tate">現場営業力</p></th>
+								<th class="abilityColumn"><p class="tate">能力合計</p></th>
+								<th class="passionColumn"><p class="tate">Thanks</p></th>
+								<th class="passionColumn"><p class="tate">Engine</p></th>
+								<th class="passionColumn"><p class="tate">All</p></th>
+								<th class="passionColumn"><p class="tate">Masterpiece</p></th>
+								<th class="passionColumn"><p class="tate">Stock</p></th>
+								<th class="passionColumn"><p class="tate">シアトルブランド</p></th>
+								<th class="passionColumn"><p class="tate">情意合計</p></th>
+								<th id="totalBeforeColumn"><p class="tate">合計</p></th>
+								<th class="achievementColumn"><p class="tate">お客様満足度</p></th>
+								<th class="achievementColumn"><p class="tate">コミットメント</p></th>
+								<th class="achievementColumn"><p class="tate">提案</p></th>
+								<th class="achievementColumn"><p class="tate">社内コミュニケーション</p></th>
+								<th class="achievementColumn"><p class="tate">人材育成</p></th>
+								<th class="achievementColumn"><p class="tate">成果合計</p></th>
+
+								<th class="abilityColumn"><p class="tate">ITスキル</p></th>
+								<th class="abilityColumn"><p class="tate">業務理解力</p></th>
+								<th class="abilityColumn"><p class="tate">コミュニケーション力</p></th>
+								<th class="abilityColumn"><p class="tate">リーダーシップ</p></th>
+								<th class="abilityColumn"><p class="tate">課題解決力</p></th>
+								<th class="abilityColumn"><p class="tate">専門力</p></th>
+								<th class="abilityColumn"><p class="tate">現場営業力</p></th>
+								<th class="abilityColumn"><p class="tate">能力合計</p></th>
+
+								<th class="passionColumn"><p class="tate">Thanks</p></th>
+								<th class="passionColumn"><p class="tate">Engine</p></th>
+								<th class="passionColumn"><p class="tate">All</p></th>
+								<th class="passionColumn"><p class="tate">Masterpiece</p></th>
+								<th class="passionColumn"><p class="tate">Stock</p></th>
+								<th class="passionColumn"><p class="tate">シアトルブランド</p></th>
+								<th class="passionColumn"><p class="tate">情意合計</p></th>
+								<!-- </div> -->
+								<th id="totalColumn"><p class="tate">合計</p></th>
+								<th><p class="tate">備考</p></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="obj, stat : ${multipledResultsNew1}" id="evaluation">
+								<td id="userId" th:text="${obj.userName}"></td>
+								<td id="engineerLevel" th:text="${obj.engineerLevel}"></td>
+								<td id="team" th:text="${obj.teamName}"></td>
+
+								<td id="attend"><input type="checkbox"
+									th:checked="${obj.attend}" disabled></input></td>
+								<td id="attitude"><input type="checkbox"
+									th:checked="${obj.attitude}" disabled></input></td>
+								<td id="securityAccident"><input type="checkbox"
+									th:checked="${obj.securityAccident}" disabled></input></td>
+								<!-- <div class="achievement"> -->
+								<td class="achievementColumn" id="achievementsatisfyScoreBefore"
+									th:text="${obj.satisfyScoreBefore}"></td>
+								<td class="achievementColumn"
+									id="achievementcommitmentScoreBefore"
+									th:text="${obj.commitmentScoreBefore}"></td>
+								<td class="achievementColumn"
+									id="achievementproposalScoreBefore"
+									th:text="${obj.proposalScoreBefore}"></td>
+								<td class="achievementColumn"
+									id="achievementinternalCommunicationScoreBefore"
+									th:text="${obj.internalCommunicationScoreBefore}"></td>
+								<td class="achievementColumn"
+									id="achievementdevelopmentScoreBefore"
+									th:text="${obj.developmentScoreBefore}"></td>
+								<td class="achievementColumn" id="achievementSumBefore"
+									th:text="${obj.sumAchievementBefore}"></td>
+								<td class="abilityColumn" id="abilityitSkillsScoreBefore"
+									th:text="${obj.itSkillsScoreBefore}"></td>
+								<td class="abilityColumn" id="abilityunderstandScoreBefore"
+									th:text="${obj.understandScoreBefore}"></td>
+								<td class="abilityColumn" id="abilitycommunicationScoreBefore"
+									th:text="${obj.communicationScoreBefore}"></td>
+								<td class="abilityColumn" id="abilityleadershipScoreBefore"
+									th:text="${obj.leadershipScoreBefore}"></td>
+								<td class="abilityColumn" id="abilityresolveScoreBefore"
+									th:text="${obj.resolveScoreBefore}"></td>
+								<td class="abilityColumn" id="abilityprofessionalScoreBefore"
+									th:text="${obj.professionalScoreBefore}"></td>
+								<td class="abilityColumn" id="abilityfieldSalesScoreBefore"
+									th:text="${obj.fieldSalesScoreBefore}"></td>
+								<td class="abilityColumn" id="abilitySumBefore"
+									th:text="${obj.sumAbilityBefore}"></td>
+								<td class="passionColumn" id="passionthanksScoreBefore"
+									th:text="${obj.thanksScoreBefore}"></td>
+								<td class="passionColumn" id="passionengineScoreBefore"
+									th:text="${obj.engineScoreBefore}"></td>
+								<td class="passionColumn" id="passionallScoreBefore"
+									th:text="${obj.allScoreBefore}"></td>
+								<td class="passionColumn" id="passionmasterpieceScoreBefore"
+									th:text="${obj.masterpieceScoreBefore}"></td>
+								<td class="passionColumn" id="passionstockScoreBefore"
+									th:text="${obj.stockScoreBefore}"></td>
+								<td class="passionColumn" id="passionseattleBrandScoreBefore"
+									th:text="${obj.seattleBrandScoreBefore}"></td>
+								<td class="passionColumn" id="passionSumBefore"
+									th:text="${obj.sumPassionBefore}"></td>
+								<td id="totalScoreBefore" th:text="${obj.totalScoreBefore}"></td>
+								<!-- <div class="achievement1"> -->
+								<td class="achievementColumn" id="achievementsatisfyScore"
+									th:text="${obj.satisfyScore}"></td>
+								<td class="achievementColumn" id="achievementcommitmentScore"
+									th:text="${obj.commitmentScore}"></td>
+								<td class="achievementColumn" id="achievementproposalScore"
+									th:text="${obj.proposalScore}"></td>
+								<td class="achievementColumn"
+									id="achievementinternalCommitmentScore"
+									th:text="${obj.internalCommunicationScore}"></td>
+								<td class="achievementColumn" id="achievementdevelopmentScore"
+									th:text="${obj.developmentScore}"></td>
+								<td class="achievementColumn" id="achievementSum"
+									th:text="${obj.sumAchievement}"></td>
+								<td class="abilityColumn" id="abilityitSkillsScore"
+									th:text="${obj.itSkillsScore}"></td>
+								<td class="abilityColumn" id="abilityunderstandScore"
+									th:text="${obj.understandScore}"></td>
+								<td class="abilityColumn" id="abilitycommunicationScore"
+									th:text="${obj.communicationScore}"></td>
+								<td class="abilityColumn" id="abilityleadershipScore"
+									th:text="${obj.leadershipScore}"></td>
+								<td class="abilityColumn" id="abilityresolveScore"
+									th:text="${obj.resolveScore}"></td>
+								<td class="abilityColumn" id="abilityprofessionalScore"
+									th:text="${obj.professionalScore}"></td>
+								<td class="abilityColumn" id="abilityfieldSalesScore"
+									th:text="${obj.fieldSalesScore}"></td>
+								<td class="abilityColumn" id="abilitySum"
+									th:text="${obj.sumAbility}"></td>
+								<td class="passionColumn" id="passionthanksScore"
+									th:text="${obj.thanksScore}"></td>
+								<td class="passionColumn" id="passionengineScore"
+									th:text="${obj.engineScore}"></td>
+								<td class="passionColumn" id="passionallScore"
+									th:text="${obj.allScore}"></td>
+								<td class="passionColumn" id="passionmasterpieceScore"
+									th:text="${obj.masterpieceScore}"></td>
+								<td class="passionColumn" id="passionstockScore"
+									th:text="${obj.stockScore}"></td>
+								<td class="passionColumn" id="passionseattleBrandScore"
+									th:text="${obj.seattleBrandScore}"></td>
+								<td class="passionColumn" id="passionSum"
+									th:text="${obj.sumPassion}"></td>
+								<td id="totalScore" th:text="${obj.totalScore}"></td>
+								<td th:text="${obj.remark}"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</section>
+			<!-- 二つ目のタブ -->
+			<section>
+				<h1 class="selected" th:text="${termSecondLatest}">2017下期</h1>
+				<div>
+					<a id="latest2">CSVでダウンロード</a>
+					<div>
+						名前 <input id="nameSearch2" type="text"></input>
+					</div>
+					<div>
+						エンジニアレベル <input id="eLevel2" type="text"></input>
+					</div>
+					<div>
+						チーム <input id="teamSearch2" type="text"></input>
+					</div>
+					<table id="results2">
+						<thead id="top">
+							<tr>
+								<td colspan="3"></td>
+								<td colspan="3">前提事項</td>
+								<td class="achievementColumn" colspan="6">成果</td>
+								<td class="abilityColumn" colspan="8">能力</td>
+								<td class="passionColumn" colspan="7">情意</td>
+								<td></td>
+								<td class="achievementColumn" colspan="6">成果</td>
+								<td class="abilityColumn" colspan="8">能力</td>
+								<td class="passionColumn" colspan="7">情意</td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<th><p class="tate">ユーザー</p></th>
+								<th><p class="tate">エンジニアレベル</p></th>
+								<th><p class="tate">チーム</p></th>
+								<th><p class="tate">シアトル会への出席</p></th>
+								<th><p class="tate">勤怠</p></th>
+								<th><p class="tate">セキュリティ事故</p></th>
+								<th class="achievementColumn"><p class="tate">お客様満足度</p></th>
+								<th class="achievementColumn"><p class="tate">コミットメント</p></th>
+								<th class="achievementColumn"><p class="tate">提案</p></th>
+								<th class="achievementColumn"><p class="tate">社内コミュニケーション</p></th>
+								<th class="achievementColumn"><p class="tate">人材育成</p></th>
+								<th class="achievementColumn"><p class="tate">成果合計</p></th>
+								<th class="abilityColumn"><p class="tate">ITスキル</p></th>
+								<th class="abilityColumn"><p class="tate">業務理解力</p></th>
+								<th class="abilityColumn"><p class="tate">コミュニケーション力</p></th>
+								<th class="abilityColumn"><p class="tate">リーダーシップ</p></th>
+								<th class="abilityColumn"><p class="tate">課題解決力</p></th>
+								<th class="abilityColumn"><p class="tate">専門力</p></th>
+								<th class="abilityColumn"><p class="tate">現場営業力</p></th>
+								<th class="abilityColumn"><p class="tate">能力合計</p></th>
+								<th class="passionColumn"><p class="tate">Thanks</p></th>
+								<th class="passionColumn"><p class="tate">Engine</p></th>
+								<th class="passionColumn"><p class="tate">All</p></th>
+								<th class="passionColumn"><p class="tate">Masterpiece</p></th>
+								<th class="passionColumn"><p class="tate">Stock</p></th>
+								<th class="passionColumn"><p class="tate">シアトルブランド</p></th>
+								<th class="passionColumn"><p class="tate">情意合計</p></th>
+								<th id="totalBeforeColumn"><p class="tate">合計</p></th>
+								<th class="achievementColumn"><p class="tate">お客様満足度</p></th>
+								<th class="achievementColumn"><p class="tate">コミットメント</p></th>
+								<th class="achievementColumn"><p class="tate">提案</p></th>
+								<th class="achievementColumn"><p class="tate">社内コミュニケーション</p></th>
+								<th class="achievementColumn"><p class="tate">人材育成</p></th>
+								<th class="achievementColumn"><p class="tate">成果合計</p></th>
+								<th class="abilityColumn"><p class="tate">ITスキル</p></th>
+								<th class="abilityColumn"><p class="tate">業務理解力</p></th>
+								<th class="abilityColumn"><p class="tate">コミュニケーション力</p></th>
+								<th class="abilityColumn"><p class="tate">リーダーシップ</p></th>
+								<th class="abilityColumn"><p class="tate">課題解決力</p></th>
+								<th class="abilityColumn"><p class="tate">専門力</p></th>
+								<th class="abilityColumn"><p class="tate">現場営業力</p></th>
+								<th class="abilityColumn"><p class="tate">能力合計</p></th>
+								<th class="passionColumn"><p class="tate">Thanks</p></th>
+								<th class="passionColumn"><p class="tate">Engine</p></th>
+								<th class="passionColumn"><p class="tate">All</p></th>
+								<th class="passionColumn"><p class="tate">Masterpiece</p></th>
+								<th class="passionColumn"><p class="tate">Stock</p></th>
+								<th class="passionColumn"><p class="tate">シアトルブランド</p></th>
+								<th class="passionColumn"><p class="tate">情意合計</p></th>
+								<th id="totalColumn"><p class="tate">合計</p></th>
+								<th><p class="tate">備考</p></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="obj, stat : ${multipledResultsNew2}" id="evaluation">
+								<td id="userId2" th:text="${obj.userName}"></td>
+								<td id="engineerLevel2" th:text="${obj.engineerLevel}"></td>
+								<td id="team2" th:text="${obj.teamName}"></td>
+								<td id="attend2"><input type="checkbox"
+									th:checked="${obj.attend}" disabled></input></td>
+								<td id="attitude2"><input type="checkbox"
+									th:checked="${obj.attitude}" disabled></input></td>
+								<td id="securityAccident2"><input type="checkbox"
+									th:checked="${obj.securityAccident}" disabled></input></td>
+								<td class="achievementColumn"
+									id="achievementsatisfyScoreBefore2"
+									th:text="${obj.satisfyScoreBefore}"></td>
+								<td class="achievementColumn"
+									id="achievementcommitmentScoreBefore2"
+									th:text="${obj.commitmentScoreBefore}"></td>
+								<td class="achievementColumn"
+									id="achievementproposalScoreBefore2"
+									th:text="${obj.proposalScoreBefore}"></td>
+								<td class="achievementColumn"
+									id="achievementinternalCommunicationScoreBefore2"
+									th:text="${obj.internalCommunicationScoreBefore}"></td>
+								<td class="achievementColumn"
+									id="achievementdevelopmentScoreBefore2"
+									th:text="${obj.developmentScoreBefore}"></td>
+								<td class="achievementColumn" id="achievementSumBefore2"
+									th:text="${obj.sumAchievementBefore}"></td>
+								<td class="abilityColumn" id="abilityitSkillsScoreBefore2"
+									th:text="${obj.itSkillsScoreBefore}"></td>
+								<td class="abilityColumn" id="abilityunderstandScoreBefore2"
+									th:text="${obj.understandScoreBefore}"></td>
+								<td class="abilityColumn" id="abilitycommunicationScoreBefore2"
+									th:text="${obj.communicationScoreBefore}"></td>
+								<td class="abilityColumn" id="abilityleadershipScoreBefore2"
+									th:text="${obj.leadershipScoreBefore}"></td>
+								<td class="abilityColumn" id="abilityresolveScoreBefore2"
+									th:text="${obj.resolveScoreBefore}"></td>
+								<td class="abilityColumn" id="abilityprofessionalScoreBefore2"
+									th:text="${obj.professionalScoreBefore}"></td>
+								<td class="abilityColumn" id="abilityfieldSalesScoreBefore2"
+									th:text="${obj.fieldSalesScoreBefore}"></td>
+								<td class="abilityColumn" id="abilitySumBefore2"
+									th:text="${obj.sumAbilityBefore}"></td>
+								<td class="passionColumn" id="passionthanksScoreBefore2"
+									th:text="${obj.thanksScoreBefore}"></td>
+								<td class="passionColumn" id="passionengineScoreBefore2"
+									th:text="${obj.engineScoreBefore}"></td>
+								<td class="passionColumn" id="passionallScoreBefore2"
+									th:text="${obj.allScoreBefore}"></td>
+								<td class="passionColumn" id="passionmasterpieceScoreBefore2"
+									th:text="${obj.masterpieceScoreBefore}"></td>
+								<td class="passionColumn" id="passionstockScoreBefore2"
+									th:text="${obj.stockScoreBefore}"></td>
+								<td class="passionColumn" id="passionseattleBrandScoreBefore2"
+									th:text="${obj.seattleBrandScoreBefore}"></td>
+								<td class="passionColumn" id="passionSumBefore"
+									th:text="${obj.sumPassionBefore}"></td>
+								<td id="totalScoreBefore2" th:text="${obj.totalScoreBefore}"></td>
+								<td class="achievementColumn" id="achievementsatisfyScore2"
+									th:text="${obj.satisfyScore}"></td>
+								<td class="achievementColumn" id="achievementcommitmentScore2"
+									th:text="${obj.commitmentScore}"></td>
+								<td class="achievementColumn" id="achievementproposalScore2"
+									th:text="${obj.proposalScore}"></td>
+								<td class="achievementColumn"
+									id="achievementinternalCommitmentScore2"
+									th:text="${obj.internalCommunicationScore}"></td>
+								<td class="achievementColumn" id="achievementdevelopmentScore2"
+									th:text="${obj.developmentScore}"></td>
+								<td class="achievementColumn" id="achievementSum2"
+									th:text="${obj.sumAchievement}"></td>
+								<td class="abilityColumn" id="abilityitSkillsScore2"
+									th:text="${obj.itSkillsScore}"></td>
+								<td class="abilityColumn" id="abilityunderstandScore2"
+									th:text="${obj.understandScore}"></td>
+								<td class="abilityColumn" id="abilitycommunicationScore2"
+									th:text="${obj.communicationScore}"></td>
+								<td class="abilityColumn" id="abilityleadershipScore2"
+									th:text="${obj.leadershipScore}"></td>
+								<td class="abilityColumn" id="abilityresolveScore2"
+									th:text="${obj.resolveScore}"></td>
+								<td class="abilityColumn" id="abilityprofessionalScore2"
+									th:text="${obj.professionalScore}"></td>
+								<td class="abilityColumn" id="abilityfieldSalesScore2"
+									th:text="${obj.fieldSalesScore}"></td>
+								<td class="abilityColumn" id="abilitySum2"
+									th:text="${obj.sumAbility}"></td>
+								<td class="passionColumn" id="passionthanksScore2"
+									th:text="${obj.thanksScore}"></td>
+								<td class="passionColumn" id="passionengineScore2"
+									th:text="${obj.engineScore}"></td>
+								<td class="passionColumn" id="passionallScore2"
+									th:text="${obj.allScore}"></td>
+								<td class="passionColumn" id="passionmasterpieceScore2"
+									th:text="${obj.masterpieceScore}"></td>
+								<td class="passionColumn" id="passionstockScore2"
+									th:text="${obj.stockScore}"></td>
+								<td class="passionColumn" id="passionseattleBrandScore2"
+									th:text="${obj.seattleBrandScore}"></td>
+								<td class="passionColumn" id="passionSum2"
+									th:text="${obj.sumPassion}"></td>
+								<td id="totalScore2" th:text="${obj.totalScore}"></td>
+								<td th:text="${obj.remark}"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</section>
+			<section>
+				<h1 class="selected" th:text="${termThirdLatest}">2017上期</h1>
+				<div>
+					<a id="latest3">CSVでダウンロード</a>
+					<div>
+						名前 <input id="nameSearch3" type="text"></input>
+					</div>
+					<div>
+						エンジニアレベル <input id="eLevel3" type="text"></input>
+					</div>
+					<div>
+						チーム <input id="teamSearch3" type="text"></input>
+					</div>
+					<table id="results3">
+						<thead id="top">
+
+							<tr>
+								<td colspan="3"></td>
+								<td colspan="3">前提事項</td>
+								<td class="achievementColumn" colspan="6">成果</td>
+								<td class="abilityColumn" colspan="8">能力</td>
+								<td class="passionColumn" colspan="7">情意</td>
+								<td></td>
+								<td class="achievementColumn" colspan="6">成果</td>
+								<td class="abilityColumn" colspan="8">能力</td>
+								<td class="passionColumn" colspan="7">情意</td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<th><p class="tate">ユーザー</p></th>
+								<th><p class="tate">エンジニアレベル</p></th>
+								<th><p class="tate">チーム</p></th>
+								<th><p class="tate">シアトル会への出席</p></th>
+								<th><p class="tate">勤怠</p></th>
+								<th><p class="tate">セキュリティ事故</p></th>
+								<th class="achievementColumn"><p class="tate">お客様満足度</p></th>
+								<th class="achievementColumn"><p class="tate">コミットメント</p></th>
+								<th class="achievementColumn"><p class="tate">提案</p></th>
+								<th class="achievementColumn"><p class="tate">社内コミュニケーション</p></th>
+								<th class="achievementColumn"><p class="tate">人材育成</p></th>
+								<th class="achievementColumn"><p class="tate">成果合計</p></th>
+								<th class="abilityColumn"><p class="tate">ITスキル</p></th>
+								<th class="abilityColumn"><p class="tate">業務理解力</p></th>
+								<th class="abilityColumn"><p class="tate">コミュニケーション力</p></th>
+								<th class="abilityColumn"><p class="tate">リーダーシップ</p></th>
+								<th class="abilityColumn"><p class="tate">課題解決力</p></th>
+								<th class="abilityColumn"><p class="tate">専門力</p></th>
+								<th class="abilityColumn"><p class="tate">現場営業力</p></th>
+								<th class="abilityColumn"><p class="tate">能力合計</p></th>
+								<th class="passionColumn"><p class="tate">Thanks</p></th>
+								<th class="passionColumn"><p class="tate">Engine</p></th>
+								<th class="passionColumn"><p class="tate">All</p></th>
+								<th class="passionColumn"><p class="tate">Masterpiece</p></th>
+								<th class="passionColumn"><p class="tate">Stock</p></th>
+								<th class="passionColumn"><p class="tate">シアトルブランド</p></th>
+								<th class="passionColumn"><p class="tate">情意合計</p></th>
+								<th id="totalBeforeColumn"><p class="tate">合計</p></th>
+								<th class="achievementColumn"><p class="tate">お客様満足度</p></th>
+								<th class="achievementColumn"><p class="tate">コミットメント</p></th>
+								<th class="achievementColumn"><p class="tate">提案</p></th>
+								<th class="achievementColumn"><p class="tate">社内コミュニケーション</p></th>
+								<th class="achievementColumn"><p class="tate">人材育成</p></th>
+								<th class="achievementColumn"><p class="tate">成果合計</p></th>
+								<th class="abilityColumn"><p class="tate">ITスキル</p></th>
+								<th class="abilityColumn"><p class="tate">業務理解力</p></th>
+								<th class="abilityColumn"><p class="tate">コミュニケーション力</p></th>
+								<th class="abilityColumn"><p class="tate">リーダーシップ</p></th>
+								<th class="abilityColumn"><p class="tate">課題解決力</p></th>
+								<th class="abilityColumn"><p class="tate">専門力</p></th>
+								<th class="abilityColumn"><p class="tate">現場営業力</p></th>
+								<th class="abilityColumn"><p class="tate">能力合計</p></th>
+								<th class="passionColumn"><p class="tate">Thanks</p></th>
+								<th class="passionColumn"><p class="tate">Engine</p></th>
+								<th class="passionColumn"><p class="tate">All</p></th>
+								<th class="passionColumn"><p class="tate">Masterpiece</p></th>
+								<th class="passionColumn"><p class="tate">Stock</p></th>
+								<th class="passionColumn"><p class="tate">シアトルブランド</p></th>
+								<th class="passionColumn"><p class="tate">情意合計</p></th>
+								<th id="totalColumn"><p class="tate">合計</p></th>
+								<th><p class="tate">備考</p></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="obj, stat : ${multipledResultsNew3}" id="evaluation">
+								<td id="userId3" th:text="${obj.userName}"></td>
+								<td id="engineerLevel3" th:text="${obj.engineerLevel}"></td>
+								<td id="team3" th:text="${obj.teamName}"></td>
+								<td id="attend3"><input type="checkbox"
+									th:checked="${obj.attend}" disabled></input></td>
+								<td id="attitude3"><input type="checkbox"
+									th:checked="${obj.attitude}" disabled></input></td>
+								<td id="securityAccident3"><input type="checkbox"
+									th:checked="${obj.securityAccident}" disabled></input></td>
+								<td class="achievementColumn"
+									id="achievementsatisfyScoreBefore3"
+									th:text="${obj.satisfyScoreBefore}"></td>
+								<td class="achievementColumn"
+									id="achievementcommitmentScoreBefore3"
+									th:text="${obj.commitmentScoreBefore}"></td>
+								<td class="achievementColumn"
+									id="achievementproposalScoreBefore3"
+									th:text="${obj.proposalScoreBefore}"></td>
+								<td class="achievementColumn"
+									id="achievementinternalCommunicationScoreBefore3"
+									th:text="${obj.internalCommunicationScoreBefore}"></td>
+								<td class="achievementColumn"
+									id="achievementdevelopmentScoreBefore3"
+									th:text="${obj.developmentScoreBefore}"></td>
+								<td class="achievementColumn" id="achievementSumBefore3"
+									th:text="${obj.sumAchievementBefore}"></td>
+								<td class="abilityColumn" id="abilityitSkillsScoreBefore3"
+									th:text="${obj.itSkillsScoreBefore}"></td>
+								<td class="abilityColumn" id="abilityunderstandScoreBefore3"
+									th:text="${obj.understandScoreBefore}"></td>
+								<td class="abilityColumn" id="abilitycommunicationScoreBefore3"
+									th:text="${obj.communicationScoreBefore}"></td>
+								<td class="abilityColumn" id="abilityleadershipScoreBefore3"
+									th:text="${obj.leadershipScoreBefore}"></td>
+								<td class="abilityColumn" id="abilityresolveScoreBefore3"
+									th:text="${obj.resolveScoreBefore}"></td>
+								<td class="abilityColumn" id="abilityprofessionalScoreBefore3"
+									th:text="${obj.professionalScoreBefore}"></td>
+								<td class="abilityColumn" id="abilityfieldSalesScoreBefore3"
+									th:text="${obj.fieldSalesScoreBefore}"></td>
+								<td class="abilityColumn" id="abilitySumBefore3"
+									th:text="${obj.sumAbilityBefore}"></td>
+								<td class="passionColumn" id="passionthanksScoreBefore3"
+									th:text="${obj.thanksScoreBefore}"></td>
+								<td class="passionColumn" id="passionengineScoreBefore3"
+									th:text="${obj.engineScoreBefore}"></td>
+								<td class="passionColumn" id="passionallScoreBefore3"
+									th:text="${obj.allScoreBefore}"></td>
+								<td class="passionColumn" id="passionmasterpieceScoreBefore3"
+									th:text="${obj.masterpieceScoreBefore}"></td>
+								<td class="passionColumn" id="passionstockScoreBefore3"
+									th:text="${obj.stockScoreBefore}"></td>
+								<td class="passionColumn" id="passionseattleBrandScoreBefore3"
+									th:text="${obj.seattleBrandScoreBefore}"></td>
+								<td class="passionColumn" id="passionSumBefore3"
+									th:text="${obj.sumPassionBefore}"></td>
+								<td id="totalScoreBefore3" th:text="${obj.totalScoreBefore}"></td>
+								<td class="achievementColumn" id="achievementsatisfyScore3"
+									th:text="${obj.satisfyScore}"></td>
+								<td class="achievementColumn" id="achievementcommitmentScore3"
+									th:text="${obj.commitmentScore}"></td>
+								<td class="achievementColumn" id="achievementproposalScore3"
+									th:text="${obj.proposalScore}"></td>
+								<td class="achievementColumn"
+									id="achievementinternalCommitmentScore3"
+									th:text="${obj.internalCommunicationScore}"></td>
+								<td class="achievementColumn" id="achievementdevelopmentScore3"
+									th:text="${obj.developmentScore}"></td>
+								<td class="achievementColumn" id="achievementSum3"
+									th:text="${obj.sumAchievement}"></td>
+								<td class="abilityColumn" id="abilityitSkillsScore3"
+									th:text="${obj.itSkillsScore}"></td>
+								<td class="abilityColumn" id="abilityunderstandScore3"
+									th:text="${obj.understandScore}"></td>
+								<td class="abilityColumn" id="abilitycommunicationScore3"
+									th:text="${obj.communicationScore}"></td>
+								<td class="abilityColumn" id="abilityleadershipScore3"
+									th:text="${obj.leadershipScore}"></td>
+								<td class="abilityColumn" id="abilityresolveScore3"
+									th:text="${obj.resolveScore}"></td>
+								<td class="abilityColumn" id="abilityprofessionalScore3"
+									th:text="${obj.professionalScore}"></td>
+								<td class="abilityColumn" id="abilityfieldSalesScore3"
+									th:text="${obj.fieldSalesScore}"></td>
+								<td class="abilityColumn" id="abilitySum3"
+									th:text="${obj.sumAbility}"></td>
+								<td class="passionColumn" id="passionthanksScore3"
+									th:text="${obj.thanksScore}"></td>
+								<td class="passionColumn" id="passionengineScore3"
+									th:text="${obj.engineScore}"></td>
+								<td class="passionColumn" id="passionallScore3"
+									th:text="${obj.allScore}"></td>
+								<td class="passionColumn" id="passionmasterpieceScore3"
+									th:text="${obj.masterpieceScore}"></td>
+								<td class="passionColumn" id="passionstockScore3"
+									th:text="${obj.stockScore}"></td>
+								<td class="passionColumn" id="passionseattleBrandScore3"
+									th:text="${obj.seattleBrandScore}"></td>
+								<td class="passionColumn" id="passionSum3"
+									th:text="${obj.sumPassion}"></td>
+								<td id="totalScore3" th:text="${obj.totalScore}"></td>
+								<td th:text="${obj.remark}"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</section>
+		</div>
+		<!-- jsファイル読み込み -->
+		<script th:inline="javascript" th:src="@{js/evaluations.js}">	
+		</script>
+
+
+	</div>
+</body>
+</html>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" media="all"
+	th:href="@{/webjars/bootstrap/3.3.1/css/bootstrap.min.css}" />
+<link href="../static/css/common.css" th:href="@{/css/common.css}"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script th:src="@{/js/CareerVisionEdit.js}"></script>
+<link href=".../static/css/careervisionEdit.css"
+	th:href="@{/css/careervisionEdit.css}" rel="stylesheet">
+<link href="../static/css/common.css" th:href="@{/css/common.css}"
+	rel="stylesheet">
+<title>Career Vision</title>
+<link href="../static/css/sampleCss.css" th:href="@{/css/sampleCss.css}"
+	rel="stylesheet">
+</head>
+<body>
+	<div th:replace="layout :: header"></div>
+	<script th:inline="javascript">
+	/*<![CDATA[*/
+		$(function() { 
+			var managementVs = /*[[${ManagementVisions}]]*/;
+			var masterMVs = /*[[${MasterManagementVisions}]]*/;
+			
+			/* managementKeyはインデックス */
+			for (managementKey in managementVs) {
+				/* masterKeyはインデックス(配列) */
+				for (masterKey in masterMVs) {
+					if (managementVs[managementKey].managementId == masterMVs[masterKey].managementId) {
+						/* managementVs[managementKey].managementId つまりIdを指定する　そのIdをチェックをtrueへ*/
+						$(".management-" + managementVs[managementKey].managementId).prop('checked', true);
+						break;
+					}
+				}
+			}
+			
+			var specialistVs = /*[[${SpecialistVisions}]]*/;
+			var masterSpVs = /*[[${MasterSpecialistVisions}]]*/;
+			
+			/* specialistKeyはインデックス */
+			for (specialistKey in specialistVs) {
+				/* masterKeyはインデックス(配列) */
+				for (masterKey in masterSpVs) {
+					if (specialistVs[specialistKey].specialistId == masterSpVs[masterKey].specialistId) {
+						/* specialistVs[specialistKey].specialistId つまりIdを指定する　そのIdをチェックをtrueへ*/
+						$(".specialist-" + specialistVs[specialistKey].specialistId).prop('checked', true);
+						break;
+					}
+				}
+			}
+			
+			var sectorVs = /*[[${SectorVisions}]]*/;
+			var masterSeVs = /*[[${MasterSectorVisions}]]*/;
+			
+			/* sectorKeyはインデックス */
+			for (sectorKey in sectorVs) {
+				/* masterKeyはインデックス(配列) */
+				for (masterKey in masterSeVs) {
+					if (sectorVs[sectorKey].sectorId == masterSeVs[masterKey].sectorId) {
+						/* sectorVs[sectorKey].sectorId つまりIdを指定する　そのIdをチェックをtrueへ*/
+						$(".sector-" + sectorVs[sectorKey].sectorId).prop('checked', true);
+						break;
+					}
+				}
+			}
+		}); 
+	/*]]>*/
+	</script>
+	<form method="post" th:action="@{/CareerVisionsEdit}"
+		th:object="${CVformModel}" name="formVision">
+		<input type="hidden" name="userId" th:value="*{userId}" /> <input
+			type="hidden" name="version" th:value="*{version}" /> <input
+			type="hidden" name="registeredBy" th:value="*{registeredBy}" /> <input
+			type="hidden" name="registeredAt" th:value="*{registeredAt}" /> <input
+			type="hidden" name="updatedBy" th:value="*{updatedBy}" /> <input
+			type="hidden" name="updatedAt" th:value="*{updatedAt}" />
+
+		<h1 class="careerVision">Career Vision Edit</h1>
+		<div class="whoAreYou">
+			<tr>
+				<th>ユーザー名:</th>
+				<th th:text=${userName}></th>
+			</tr>
+			<div></div>
+			<tr>
+				<th>エンジニアレベル:</th>
+				<th th:text=${engineerLevel}></th>
+			</tr>
+		</div>
+		<h2 class="myEssentials">人生において大事にしたいことを３つまで記入してください。</h2>
+		<p>各項目につき、100文字まで入力できます。</p>
+		<div class="container">
+			<div>
+				<textarea id="firstEssential" name="firstEssential" cols="120"
+					rows="4" wrap="soft" th:text="*{firstEssential}" maxlength="100">
+				</textarea>
+				<span id="txtlmt1">0</span>
+			</div>
+			<div>
+				<textarea id="secondEssential" name="secondEssential" cols="120"
+					rows="4" wrap="soft" th:text="*{secondEssential}" maxlength="100">
+				</textarea>
+				<span id="txtlmt2">0</span>
+			</div>
+			<div>
+				<textarea id="thirdEssential" name="thirdEssential" cols="120"
+					rows="4" wrap="soft" th:text="*{thirdEssential}" maxlength="100">
+				</textarea>
+				<span id="txtlmt3">0</span>
+			</div>
+		</div>
+		<h2 class="toWant">やりたいことを選択してください。</h2>
+		<p>「その他」の項目は、1000文字まで入力できます。</p>
+		<div class="container">
+			<div class="row">
+				<div class="toggle-buttons">
+					<!-- 題目：マネジメント -->
+					<div class="button2" col-sm-2>マネジメント</div>
+					<div
+						th:each="masterManagementVision, stat : ${MasterManagementVisions}">
+						<div th:field="${masterManagementVision.managementId}"></div>
+						<div>
+							<label> <input type="checkbox"
+								th:class="'management-' + ${masterManagementVision.managementId}"
+								th:name="'managementIds[' + ${masterManagementVision.managementId} +']'"
+								th:value="${masterManagementVision.managementId}" /> <span
+								class="button">
+									<p th:text="${masterManagementVision.managementName}"></p>
+							</span>
+							</label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="toggle-buttons">
+					<!-- 題目：スペシャリスト -->
+					<div class="button2" col-sm-2>スペシャリスト</div>
+					<div
+						th:each="masterSpecialistVision, stat : ${MasterSpecialistVisions}">
+						<div th:field="${masterSpecialistVision.specialistId}"></div>
+						<div>
+							<label> <input type="checkbox"
+								th:class="'specialist-' + ${masterSpecialistVision.specialistId}"
+								th:name="'specialistIds[' + ${masterSpecialistVision.specialistId} +']'"
+								th:value="${masterSpecialistVision.specialistId}" /> <span
+								class="button">
+									<p th:text="${masterSpecialistVision.specialistName}"></p>
+							</span>
+							</label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="toggle-buttons">
+					<!-- 題目：セクター -->
+					<div class="button2" col-sm-2>領域</div>
+					<div th:each="masterSectorVision, stat : ${MasterSectorVisions}">
+						<div th:field="${masterSectorVision.sectorId}"></div>
+						<div>
+							<label> <input type="checkbox"
+								th:class="'sector-' + ${masterSectorVision.sectorId}"
+								th:name="'sectorIds[' + ${masterSectorVision.sectorId} +']'"
+								th:value="${masterSectorVision.sectorId}" /> <span
+								class="button">
+									<p th:text="${masterSectorVision.sectorName}"></p>
+							</span>
+							</label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="column" col-sm-2>その他</div>
+				<div class="col-sm-10 card">
+					<textarea id="freetext" name="freetext" cols="120" rows="4"
+						wrap="soft" th:text="*{freetext}" maxlength="1000">
+					</textarea>
+				</div>
+				<span id="txtlmt4">0</span>
+			</div>
+			<h2 class="myVisions">将来ビジョンに関して記入してください。</h2>
+			<p>各項目につき、1000文字まで入力できます。</p>
+			<div class="container">
+				<div class="row">
+					<div class="column" col-sm-2>1年後</div>
+					<div class="col-sm-10 card">
+						<textarea id="oneyearVision" name="oneyearVision" cols="90"
+							rows="4" wrap="soft" th:text="*{oneyearVision}" maxlength="1000">
+					</textarea>
+					</div>
+					<span id="txtlmt5">0</span>
+				</div>
+				<div class="row">
+					<div class="column" col-sm-2>3年後</div>
+					<div class="col-sm-10 card">
+						<textarea id="threeyearsVision" name="threeyearsVision" cols="90"
+							rows="4" wrap="soft" th:text="*{threeyearsVision}"
+							maxlength="1000">
+					</textarea>
+					</div>
+					<span id="txtlmt6">0</span>
+				</div>
+				<div class="row">
+					<div class="column" col-sm-2>5年後</div>
+					<div class="col-sm-10 card">
+						<textarea id="fiveyearsVision" name="fiveyearsVision" cols="90"
+							rows="4" wrap="soft" th:text="*{fiveyearsVision}"
+							maxlength="1000">
+					</textarea>
+					</div>
+					<span id="txtlmt7">0</span>
+				</div>
+			</div>
+			<div align="right">
+				<input id="submit_button" type="submit" value="保存" />
+			</div>
+	</form>
+	<div align="right">
+		<a
+			th:href="@{/CareerVisionShow/{userId}(userId=${CVformModel.userId})}">
+			<button type="button" class="btn btn-info">キャンセル</button>
+		</a>
+	</div>
+	<div th:replace="layout :: footer"></div>
+</body>
+</html>

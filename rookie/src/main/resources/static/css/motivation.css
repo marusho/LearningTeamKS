@@ -1,0 +1,26 @@
+@charset "UTF-8";
+
+/* motivationスクロール固定 */
+ .sticky {
+        background-color: #9debe6;
+        position: -webkit-sticky;
+        position: sticky;
+        left: 0; /* 横で左に固定したいときはleft: 0, 縦で上に固定したいときはtop: 0 */
+ }
+ table {
+ 	width: 7000px
+ }
+ 
+ body {
+	color: black;
+	margin: 5px 25px;
+}
+
+td {
+	padding: 5px 10px;
+	background: #CCCCCC;
+}
+
+.err {
+	color: red;
+}

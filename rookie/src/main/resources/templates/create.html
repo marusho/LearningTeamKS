@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<title>Spring Boot Sample Site</title>
+		<link href="../static/css/sampleCss.css" th:href="@{/css/sampleCss.css}"  rel="stylesheet">
+		<link rel="stylesheet" media="all" th:href="@{/webjars/bootstrap/3.3.1/css/bootstrap.min.css}" />
+	</head>
+	<body>
+		<div th:replace="layout :: header"></div>
+		
+			
+		<h1>Register</h1>
+			<form method="post" action="" th:action="@{/create}" th:object="${formModel}">
+				<ul>
+				<table class=showInfo>
+				<tr><td><label for="userName">Name</label></td>
+				<td><input maxlength="50" type="text" name="userName" th:value="*{userName}" th:errorclass="err"/>
+				<div class="err"
+					th:errors="*{userName}" th:errorclass="err">
+				</div></td></tr>
+				<tr><td>Gender</td><td><select id="singleSelect" name="gender">
+     			<option value="">---</option>
+     			<option th:each="item : ${gender}" th:value="${item.value}" th:text="${item.value}" th:selected="${item.value} == *{gender}">singleSelect</option>
+				</select></td></tr>
+				<tr><td><label for="email">Email</label></td>
+				<td><input maxlength="256" type="text" name="email" th:value="*{email}" th:errorclass="err"/>
+				<div class="err"
+					th:errors="*{email}" th:errorclass="err">		
+				</div>
+				<p class="err" th:text="${emailDuplication}">aa</p></td></tr>
+				<tr><td><label for="employeeNumber">EmployeeNumber</label></td>
+				<td><input type="number" name="employeeNumber" th:value="*{employeeNumber}" th:errorclass="err"/>
+				<tr><td><label for="password">Password</label></td>
+				<td><input type="password" name="password" th:value="*{password}" th:errorclass="err"/>
+				<div class="err"
+					th:errors="*{password}" th:errorclass="err">
+				</div></td></tr>
+				<tr><td><input type="submit" value="Create" /></td></tr>
+			</table>
+			</ul>
+			</form>
+		<form action="#" th:action="@{/login}" method="POST">
+    		<input type="submit" value="Sign out" />
+  		</form>
+	
+		<div th:replace="layout :: footer"></div>	
+	</body>
+</html>

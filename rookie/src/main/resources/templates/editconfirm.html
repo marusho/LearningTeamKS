@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+    	xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<link rel="stylesheet" media="all" th:href="@{/webjars/bootstrap/3.3.1/css/bootstrap.min.css}" />
+ 		<link href="../static/css/common.css" th:href="@{/css/common.css}"  rel="stylesheet">
+		<title>Spring Boot Sample Site</title>
+				<link href="../static/css/sampleCss.css" th:href="@{/css/sampleCss.css}"  rel="stylesheet">
+	</head>
+	<body>
+		<div th:replace="layout :: header"></div>
+		<h1>Confirmation</h1>
+		<h2>OK?</h2>
+			<form method="post" th:action="@{/edit}" th:object="${formModel}">
+				<input type="hidden" name="userName" th:value="*{userName}" />
+				<input type="hidden" name="email" th:value="*{email}" />
+				<!-- <div th:unless="*{leaveDate}==''">
+				<input type="hidden" name="leaveDate" th:value="*{leaveDate}" />
+				</div> -->
+				<!-- <input type="hidden" name="enteredDate" th:value="*{enteredDate}" /> -->
+				<div th:unless="*{selectedItem1}==''">
+				<input type="hidden" name="selectedItem1" th:value="*{selectedItem1}" />
+				</div>
+				<div th:unless="*{selectedItem2}==''">
+				<input type="hidden" name="selectedItem2" th:value="*{selectedItem2}" />
+				</div>
+				<div th:unless="*{selectedItem3}==''">
+				<input type="hidden" name="selectedItem3" th:value="*{selectedItem3}" />
+				</div>
+				<div th:unless="*{selectedProject1}==''">
+				<input type="hidden" name="selectedProject1" th:value="*{selectedProject1}" />
+				</div>
+				<div th:unless="*{selectedProject2}==''">
+				<input type="hidden" name="selectedProject2" th:value="*{selectedProject2}" />
+				</div>
+				<div th:unless="*{selectedProject3}==''">
+				<input type="hidden" name="selectedProject3" th:value="*{selectedProject3}" />
+				</div>
+				<div th:unless="*{selectedEngineerLevel}==''">
+				<input type="hidden" name="selectedEngineerLevel" th:value="*{selectedEngineerLevel}" />
+				</div>
+				<input type="hidden" name="password" th:value="*{encodedPassword}" />
+				<input type="hidden" name="userId" th:value="*{userId}" />
+				<ul>
+				<table class="showInfo">
+				<tr><td><p th:text="|ID:*{userId}|"></p></td></tr>
+				<tr><td><p th:text="|Name: *{userName}|"></p></td></tr>
+				<tr><td><p th:text="|Email: *{email}|"></p></td></tr>
+				<!-- <tr><td><p th:text="|EnteredDate: *{enteredDate}|"></p></td></tr> -->
+				<!-- <tr><td><p th:text="|LeaveDate: *{leaveDate}|"></p></td></tr> -->
+				<tr><td><p th:text="|Department1: *{selectedItem1}|"></p></td></tr>
+				<tr><td><p th:text="|Department2: *{selectedItem2}|"></p></td></tr>
+				<tr><td><p th:text="|Department3: *{selectedItem3}|"></p></td></tr>
+				<tr><td><p th:text="|Project1: *{selectedProject1}|"></p></td></tr>
+				<tr><td><p th:text="|Project2: *{selectedProject2}|"></p></td></tr>
+				<tr><td><p th:text="|Project3: *{selectedProject3}|"></p></td></tr>
+				<tr><td><p th:text="|EngineerLevel: *{selectedEngineerLevel}|"></p></td></tr>
+				<tr><td><input type="submit" value="Update"/></td></tr>
+				<tr><td><a th:href="@{/edit/{id}(id=${formModel.userId})}">
+				<button type="button">back</button>
+				</a></td></tr>
+		</table>
+		</ul>
+		</form> 
+
+		<div th:replace="layout :: footer"></div>	
+	</body>
+</html>

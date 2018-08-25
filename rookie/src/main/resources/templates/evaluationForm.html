@@ -1,0 +1,427 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Evaluation Form</title>
+
+<!-- スタイルシート読み込み -->
+<link rel="stylesheet" media="all"
+	th:href="@{/webjars/bootstrap/3.3.1/css/bootstrap.min.css}" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link href="../static/css/tooltip.css" th:href="@{/css/tooltip.css}"
+	rel="stylesheet">
+<link href="../static/css/premises.css" th:href="@{/css/premises.css}"
+	rel="stylesheet">
+<link href="../static/css/common.css" th:href="@{/css/common.css}"
+	rel="stylesheet">
+<link href="../static/css/sampleCss.css" th:href="@{/css/sampleCss.css}"
+	rel="stylesheet">
+<link href="../static/css/status.css" th:href="@{/css/status.css}"
+	rel="stylesheet">
+<link href="../static/css/profile.css" th:href="@{/css/profile.css}"
+	rel="stylesheet">
+<link href="../static/css/evaluation.css"
+	th:href="@{/css/evaluation.css}" rel="stylesheet">
+<!-- jsファイル読み込み -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script th:src="@{/js/year.js}"></script>
+
+<script src="../static/js/tooltipSwitch.js"
+	th:src="@{/js/tooltipSwitch.js}"></script>
+	
+</head>
+
+<body>
+
+	<div th:replace="layout :: header"></div>
+	<h1>Evaluation Form</h1>
+	<h2 style="color: red" th:text="${errorStr}">
+	</h2>
+	
+	<button><a th:href="@{/CareerVisionShow/{userId}(userId=${userId})}" target="_blank">キャリアビジョンシートを別タブで開く</a></button>
+		<button><a th:href="@{/editmotivation}" target="_blank">モチベーションシートを別タブで開く</a></button>
+	<!-- Profile(現状)表示 -->
+	<div class="box1">
+		<span class="box-title0">Profile</span>
+		<table>
+			<tr>
+				<th>EmployeeNumber&nbsp;:&nbsp;</th>
+				<td th:text="${employeeNumber}"></td>
+			</tr>
+
+			<tr>
+				<th>Name&nbsp;:&nbsp;</th>
+				<td th:text="${name}"></td>
+			</tr>
+
+			<tr>
+				<th>EngineerLevel&nbsp;:&nbsp;</th>
+				<td th:text="${formModel.engineerLevel}"></td>
+			</tr>
+		</table>
+	</div>
+
+	<!-- 入力フォーム -->
+	<form method="post" th:action="@{/evaluation}" th:object="${formModel}"
+		onSubmit="return check()" name="text">
+		<input type="hidden" name="userId" th:value="${userId}" />
+
+		<div class="box27">
+			<span class="box-title2">Status</span>
+
+			<table class="pfofile">
+				<tr>
+					<th>チーム</th>
+
+					<td><select required name="teamName">
+							<option value="">TEAM</option>
+							<option th:each="team:${teamList}" th:value="${team}"
+								th:text="${team}"></option>
+					</select></td>
+				</tr>
+
+				<tr>
+					<th>年度</th>
+					<td><select id="year" name="year">
+
+					</select></td>
+				</tr>
+
+
+				<tr>
+					<th>期</th>
+					<td><select required name="termName">
+							<option th:value="上期" th:text="上期"></option>
+							<option th:value="下期" th:text="下期"></option>
+					</select></td>
+				</tr>
+
+				<tr>
+					<th>エンジニアレベル</th>
+					<td><select required id="eLevel" name="engineerLevel">
+							<option value="">EngineerLevel</option>
+							<option th:value="1" th:text="1"></option>
+							<option th:value="2" th:text="2"></option>
+							<option th:value="3" th:text="3"></option>
+							<option th:value="4PM" th:text="4PM"></option>
+							<option th:value="4アーキテクト" th:text="4アーキテクト"></option>
+							<option th:value="4コンサルタント" th:text="4コンサルタント"></option>
+							<option th:value="5PM" th:text="5PM"></option>
+							<option th:value="5アーキテクト" th:text="5アーキテクト"></option>
+							<option th:value="5コンサルタント" th:text="5コンサルタント"></option>
+					</select></td>
+				</tr>
+
+			</table>
+		</div>
+
+
+		<!-- 前提条件の☑ボックス -->
+		<div class="box26">
+			<span class="box-title">≪Premises≫</span>
+
+			<div class="div_class">
+
+				<font size="4" color="red"><b>※前提事項は、3つ全てに☑が入らなければ評価対象になりません。</b></font><br>
+				<input type="checkbox" name="attendString" th:value="checked" /><b>シアトル会への出席</b><br>
+				<input name="attendString" type="hidden" value="0" /> <input
+					type="checkbox" name="attitudeString" th:value="checked" /><b>勤怠</b><br>
+				<input name="attitudeString" type="hidden" value="0" /> <input
+					type="checkbox" name="securityAccidentString" th:value="checked" /><b>セキュリティー事故</b>
+				<input name="securityAccidentString" type="hidden" value="0" />
+			</div>
+		</div>
+
+
+		<!--　評価項目プルダウン -->
+		<div class="box7">
+
+			<b>お客様満足</b>
+			<div class="tooltip1">
+				<i class="glyphicon glyphicon-question-sign"></i>
+				<p id="satisfy">エンジニアレベルが選択されていません。</p>
+			</div>
+			<select name="satisfyScore">
+				<option th:each="score:${selectScores}" th:value="${score.value}"
+					th:text="${score.value}"
+					th:selected="${score.value}==*{satisfyScore}"></option>
+			</select>
+			<div>
+				<br>
+			</div>
+
+			<b>コミットメント</b>
+			<div class="tooltip1">
+				<i class="glyphicon glyphicon-question-sign"></i>
+				<p id="commitment">エンジニアレベルが選択されていません。</p>
+			</div>
+			<select name="commitmentScore">
+				<option th:each="score:${selectScores}" th:value="${score.value}"
+					th:text="${score.value}"
+					th:selected="${score.value}==*{commitmentScore}"></option>
+			</select>
+			<div>
+				<br>
+			</div>
+
+			<b>提案</b>
+			<div class="tooltip1">
+				<i class="glyphicon glyphicon-question-sign"></i>
+				<p id="proposal">エンジニアレベルが選択されていません。</p>
+			</div>
+			<select name="proposalScore">
+				<option th:each="score:${selectScores}" th:value="${score.value}"
+					th:text="${score.value}"
+					th:selected="${score.value}==*{proposalScore}"></option>
+			</select>
+			<div>
+				<br>
+			</div>
+
+			<b>社内コミュニケーション</b>
+			<div class="tooltip1">
+				<i class="glyphicon glyphicon-question-sign"></i>
+				<p id="internalCommunication">エンジニアレベルが選択されていません。</p>
+			</div>
+			<select name="internalCommunicationScore">
+				<option th:each="score:${selectScores}" th:value="${score.value}"
+					th:text="${score.value}"
+					th:selected="${score.value}==*{internalCommunicationScore}"></option>
+			</select>
+			<div>
+				<br>
+			</div>
+
+			<b>人材育成</b>
+			<div class="tooltip1">
+				<i class="glyphicon glyphicon-question-sign"></i>
+				<p id="development">エンジニアレベルが選択されていません。</p>
+			</div>
+			<select name="developmentScore">
+				<option th:each="score:${selectScores}" th:value="${score.value}"
+					th:text="${score.value}"
+					th:selected="${score.value}==*{developmentScore}"></option>
+			</select>
+			<div>
+				<br>
+			</div>
+
+			<b>ITスキル</b>
+			<div class="tooltip1">
+				<i class="glyphicon glyphicon-question-sign"></i>
+				<p id="itSkills">エンジニアレベルが選択されていません。</p>
+			</div>
+			<select name="itSkillsScore">
+				<option th:each="score:${selectScores}" th:value="${score.value}"
+					th:text="${score.value}"
+					th:selected="${score.value}==*{itSkillsScore}"></option>
+			</select>
+			<div>
+				<br>
+			</div>
+
+			<b>業務理解力</b>
+			<div class="tooltip1">
+				<i class="glyphicon glyphicon-question-sign"></i>
+				<p id="understand">エンジニアレベルが選択されていません。</p>
+			</div>
+			<select name="understandScore">
+				<option th:each="score:${selectScores}" th:value="${score.value}"
+					th:text="${score.value}"
+					th:selected="${score.value}==*{understandScore}"></option>
+			</select>
+			<div>
+				<br>
+			</div>
+
+			<b>コミュニケーション力</b>
+			<div class="tooltip1">
+				<i class="glyphicon glyphicon-question-sign"></i>
+				<p id="communication">エンジニアレベルが選択されていません。</p>
+			</div>
+			<select name="communicationScore">
+				<option th:each="score:${selectScores}" th:value="${score.value}"
+					th:text="${score.value}"
+					th:selected="${score.value}==*{communicationScore}"></option>
+			</select>
+			<div>
+				<br>
+			</div>
+
+			<b>リーダーシップ</b>
+			<div class="tooltip1">
+				<i class="glyphicon glyphicon-question-sign"></i>
+				<p id="leadership">エンジニアレベルが選択されていません。</p>
+			</div>
+			<select name="leadershipScore">
+				<option th:each="score:${selectScores}" th:value="${score.value}"
+					th:text="${score.value}"
+					th:selected="${score.value}==*{leadershipScore}"></option>
+			</select>
+			<div>
+				<br>
+			</div>
+
+			<b>課題解決力</b>
+			<div class="tooltip1">
+				<i class="glyphicon glyphicon-question-sign"></i>
+				<p id="resolve">エンジニアレベルが選択されていません。</p>
+			</div>
+			<select name="resolveScore">
+				<option th:each="score:${selectScores}" th:value="${score.value}"
+					th:text="${score.value}"
+					th:selected="${score.value}==*{resolveScore}"></option>
+			</select>
+			<div>
+				<br>
+			</div>
+
+			<b>専門力</b>
+			<div class="tooltip1">
+				<i class="glyphicon glyphicon-question-sign"></i>
+				<p id="professional">エンジニアレベルが選択されていません。</p>
+			</div>
+			<select name="professionalScore">
+				<option th:each="score:${selectScores}" th:value="${score.value}"
+					th:text="${score.value}"
+					th:selected="${score.value}==*{professionalScore}"></option>
+			</select>
+			<div>
+				<br>
+			</div>
+
+			<b>現場営業力</b>
+			<div class="tooltip1">
+				<i class="glyphicon glyphicon-question-sign"></i>
+				<p id="fieldSales">エンジニアレベルが選択されていません。</p>
+			</div>
+			<select name="fieldSalesScore">
+				<option th:each="score:${selectScores}" th:value="${score.value}"
+					th:text="${score.value}"
+					th:selected="${score.value}==*{fieldSalesScore}"></option>
+			</select>
+			<div>
+				<br>
+			</div>
+
+			<b>Thanks</b>
+			<div class="tooltip1">
+				<i class="glyphicon glyphicon-question-sign"></i>
+				<p id="thanks">エンジニアレベルが選択されていません。</p>
+			</div>
+			<select name="thanksScore">
+				<option th:each="score:${selectScores}" th:value="${score.value}"
+					th:text="${score.value}"
+					th:selected="${score.value}==*{thanksScore}"></option>
+			</select>
+			<div>
+				<br>
+			</div>
+
+			<b>Engine</b>
+			<div class="tooltip1">
+				<i class="glyphicon glyphicon-question-sign"></i>
+				<p id="engine">エンジニアレベルが選択されていません。</p>
+			</div>
+			<select name="engineScore">
+				<option th:each="score:${selectScores}" th:value="${score.value}"
+					th:text="${score.value}"
+					th:selected="${score.value}==*{engineScore}"></option>
+			</select>
+			<div>
+				<br>
+			</div>
+
+			<b>All</b>
+			<div class="tooltip1">
+				<i class="glyphicon glyphicon-question-sign"></i>
+				<p id="all">エンジニアレベルが選択されていません。</p>
+			</div>
+			<select name="allScore">
+				<option th:each="score:${selectScores}" th:value="${score.value}"
+					th:text="${score.value}" th:selected="${score.value}==*{allScore}"></option>
+			</select>
+			<div>
+				<br>
+			</div>
+
+			<b>Masterpiece</b>
+			<div class="tooltip1">
+				<i class="glyphicon glyphicon-question-sign"></i>
+				<p id="masterpiece">エンジニアレベルが選択されていません。</p>
+			</div>
+			<select name="masterpieceScore">
+				<option th:each="score:${selectScores}" th:value="${score.value}"
+					th:text="${score.value}"
+					th:selected="${score.value}==*{masterpieceScore}"></option>
+			</select>
+			<div>
+				<br>
+			</div>
+
+			<b>Stock</b>
+			<div class="tooltip1">
+				<i class="glyphicon glyphicon-question-sign"></i>
+				<p id="stock">エンジニアレベルが選択されていません。</p>
+			</div>
+			<select name="stockScore">
+				<option th:each="score:${selectScores}" th:value="${score.value}"
+					th:text="${score.value}"
+					th:selected="${score.value}==*{stockScore}"></option>
+			</select>
+			<div>
+				<br>
+			</div>
+
+			<b>シアトルブランド</b>
+			<div class="tooltip1">
+				<i class="glyphicon glyphicon-question-sign"></i>
+				<p id="seattleBrand">エンジニアレベルが選択されていません。</p>
+			</div>
+			<select name="seattleBrandScore">
+				<option th:each="score:${selectScores}" th:value="${score.value}"
+					th:text="${score.value}"
+					th:selected="${score.value}==*{seattleBrandScore}"></option>
+			</select>
+			<div>
+				<br>
+			</div>
+
+			<b>備考</b><br>
+			<textarea name="remark" th:text="*{remark}" rows="10" cols="40"
+				maxlength="200">200字以内で記入してください。</textarea>
+		</div>
+
+		<input id="btn" type="submit" value="Update" />
+
+		<div th:replace="layout :: footer"></div>
+
+	</form>
+	
+	
+<script type="text/javascript"> 
+
+function check(){
+
+	if(window.confirm('送信してよろしいですか？')){ // 確認ダイアログを表示
+
+		return true; // 「OK」時は送信を実行
+
+	}
+	else{ // 「キャンセル」時の処理
+
+		window.alert('キャンセルされました'); // 警告ダイアログを表示
+		return false; // 送信を中止
+
+	}
+
+}
+
+</script>
+
+</body>
+
+</html>

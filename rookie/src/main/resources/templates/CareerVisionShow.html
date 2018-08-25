@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" media="all"
+	th:href="@{/webjars/bootstrap/3.3.1/css/bootstrap.min.css}" />
+<link href="../static/css/common.css" th:href="@{/css/common.css}"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<link href=".../static/css/careervisionEdit.css" th:href="@{/css/careervisionEdit.css}"
+	rel="stylesheet">
+<link href=".../static/css/careervisionShow.css" th:href="@{/css/careervisionShow.css}"
+	rel="stylesheet">
+<link href="../static/css/common.css" th:href="@{/css/common.css}"
+	rel="stylesheet">
+<title>Career Vision Info</title>
+<link href="../static/css/sampleCss.css" th:href="@{/css/sampleCss.css}"
+	rel="stylesheet">
+</head>
+<body>
+	<div th:replace="layout :: header"></div>
+	<script th:inline="javascript">
+	/*<![CDATA[*/
+		$(function() { 
+			/* マネジメントチェックボックスの選択済み項目色付け */
+			var managementVs = /*[[${ManagementVisions}]]*/;
+			var masterMVs = /*[[${MasterManagementVisions}]]*/;
+			
+			/* managementKeyはインデックス */
+			for (managementKey in managementVs) {
+				/* masterKeyはインデックス(配列) */
+				for (masterKey in masterMVs) {
+					if (managementVs[managementKey].managementId == masterMVs[masterKey].managementId) {
+						/* managementVs[managementKey].managementId つまりIdを指定する　そのIdをチェックをtrueへ*/
+						$(".management-" + managementVs[managementKey].managementId).prop('checked', true);
+						break;
+					}
+				}
+			}
+			/* スペシャリストチェックボックスの選択済み項目色付け */
+			var specialistVs = /*[[${SpecialistVisions}]]*/;
+			var masterSVs = /*[[${MasterSpecialistVisions}]]*/;
+			
+			/* specialistKeyはインデックス */
+			for (specialistKey in specialistVs) {
+				/* masterKeyはインデックス(配列) */
+				for (masterKey in masterSVs) {
+					if (specialistVs[specialistKey].specialistId == masterSVs[masterKey].specialistId) {
+						/* specialistVs[specialistKey].specialistId つまりIdを指定する　そのIdをチェックをtrueへ*/
+						$(".specialist-" + specialistVs[specialistKey].specialistId).prop('checked', true);
+						break;
+					}
+				}
+			}
+			/* セクターチェックボックスの選択済み項目色付け */
+			var sectorVs = /*[[${SectorVisions}]]*/;
+			var masterSeVs = /*[[${MasterSectorVisions}]]*/;
+			
+			/* sectorKeyはインデックス */
+			for (sectorKey in sectorVs) {
+				/* masterKeyはインデックス(配列) */
+				for (masterKey in masterSeVs) {
+					if (sectorVs[sectorKey].sectorId == masterSeVs[masterKey].sectorId) {
+						/* sectorVs[sectorKey].sectorId つまりIdを指定する　そのIdをチェックをtrueへ*/
+						$(".sector-" + sectorVs[sectorKey].sectorId).prop('checked', true);
+						break;
+					}
+				}
+			}
+			
+		}); 
+	/*]]>*/
+	</script>
+	<h1 class="careerVision">Career Vision Info</h1>
+	<div class="whoAreYou">
+		<tr>
+			<th>ユーザー名:</th>
+			<th th:text=${userName}></th>
+		</tr>
+		<div></div>
+		<tr>
+			<th>エンジニアレベル:</th>
+			<th th:text=${engineerLevel}></th>
+		</tr>
+	</div>
+
+	<h2 class="myEssentials">人生において大事にしたいこと</h2>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm card" th:text=${firstEssential} style = "overflow: scroll;">
+				<br> <br> <br>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-sm card" th:text=${secondEssential} style = "overflow: scroll;">
+				<br> <br> <br>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-sm card" th:text=${thirdEssential} style = "overflow: scroll;">
+				<br> <br> <br>
+			</div>
+		</div>
+	</div>
+	<h2 class="toWant">やりたいこと</h2>
+	<div class="container">
+		<div class="row">
+			<div class="toggle-buttons">
+				<!-- 題目：マネジメント -->
+				<label> <input type="checkbox" disabled> <span
+						class="button2">マネジメント</span>
+					</label> <label>
+				<label><div th:each="masterManagementVision, stat : ${MasterManagementVisions}">
+						<div th:field="${masterManagementVision.managementId}"></div>
+						<div>
+							<input type="checkbox" th:class="'management-' + ${masterManagementVision.managementId}"
+							th:name="'managementIds[' + ${masterManagementVision.managementId} +']'"
+							th:value="${masterManagementVision.managementId}" disabled/>
+							<div class="button">
+								<p th:text="${masterManagementVision.managementName}"></p>
+							</div>
+						</div>
+					</div>
+				</label>
+			</div>
+		</div>
+	</div>
+	<br>
+		<div class="container">
+			<div class="row">
+				<div class="toggle-buttons">
+					<!-- 題目：スペシャリスト -->
+					<label> <input type="checkbox" disabled> <span
+						class="button2">スペシャリスト</span>
+					</label> <label>
+						<div
+							th:each="masterSpecialistVision, stat : ${MasterSpecialistVisions}">
+							<div th:field="${masterSpecialistVision.specialistId}"></div>
+							<div>
+								<input type="checkbox" th:class="'specialist-' + ${masterSpecialistVision.specialistId}"
+								th:name="'specialistIds[' + ${masterSpecialistVision.specialistId} +']'"
+								th:value="${masterSpecialistVision.specialistId}" disabled/>
+								<span class="button">
+									<p th:text="${masterSpecialistVision.specialistName}"></p>
+								</span>
+							</div>
+						</div>
+					</label>
+				</div>
+			</div>
+		</div>
+		<br>
+		<div class="container">
+			<div class="row">
+				<div class="toggle-buttons">
+					<!-- 題目：領域 -->
+					<label> <input type="checkbox" disabled> <span
+						class="button2">領域</span>
+					</label> <label>
+						<div
+							th:each="masterSectorVision, stat : ${MasterSectorVisions}">
+							<div th:field="${masterSectorVision.sectorId}"></div>
+							<div>
+								<input type="checkbox" th:class="'sector-' + ${masterSectorVision.sectorId}"
+								th:name="'sectorIds[' + ${masterSectorVision.sectorId} +']'"
+								th:value="${masterSectorVision.sectorId}" disabled/>
+								<span class="button">
+									<p th:text="${masterSectorVision.sectorName}"></p>
+								</span>
+							</div>
+						</div>
+					</label>
+				</div>
+			</div>
+		</div>
+		<br>
+	<div class="container">
+		<div class="row">
+			<div class="column" col-sm-2>その他</div>
+			<div class="col-sm-10 card" th:text=${freetext} style = "overflow: scroll;">
+				<br> <br> <br>
+			</div>
+		</div>
+	</div>
+	<br>
+	<h2 class="myVisions">将来ビジョン</h2>
+	<div class="container">
+		<div class="row">
+			<div class="column" col-sm-2>1年後</div>
+			<div class="col-sm card" th:text=${oneyearVision} style = "overflow: scroll;">
+				<br> <br> <br>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="column" col-sm-2>3年後</div>
+			<div class="col-sm card" th:text=${threeyearsVision} style = "overflow: scroll;">
+				<br> <br> <br>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="column" col-sm-2>5年後</div>
+			<div class="col-sm card" th:text=${fiveyearsVision} style = "overflow: scroll;">
+				<br> <br> <br>
+			</div>
+		</div>
+	</div>
+	<br>
+	<div align="right">
+		<a th:href="@{/CareerVisionShow/{userId}(userId=${CVformModel.userId})}" onClick="window.close();">
+			<button class="btn btn-info">タブを閉じる</button>
+		</a>
+		<a th:href="@{/CareerVisionEdit/{userId}(userId=${CVformModel.userId})}">
+			<button class="btn btn-info">︎編集</button>
+		</a>
+	</div>
+	<div th:replace="layout :: footer"></div>
+</body>
+</html>
