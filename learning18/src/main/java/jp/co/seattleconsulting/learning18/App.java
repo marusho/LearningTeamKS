@@ -6,7 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 
 /**
  * Appデフォルト作成クラス
- *
+ * 
  */
 public class App
 {
