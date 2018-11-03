@@ -4,13 +4,14 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<title>Spring Boot Sample Site</title>
+        <link href="../static/css/common.css" th:href="@{/css/common.css}" rel="stylesheet">
 		<link href="../static/css/sampleCss.css" th:href="@{/css/sampleCss.css}"  rel="stylesheet">
 		<link rel="stylesheet" media="all" th:href="@{/webjars/bootstrap/3.3.1/css/bootstrap.min.css}" />
 	</head>
 	<body>
 		<div th:replace="layout :: header"></div>
-		
-			
+
+
 		<h1>Register</h1>
 			<form method="post" action="" th:action="@{/create}" th:object="${formModel}">
 				<ul>
@@ -27,7 +28,7 @@
 				<tr><td><label for="email">Email</label></td>
 				<td><input maxlength="256" type="text" name="email" th:value="*{email}" th:errorclass="err"/>
 				<div class="err"
-					th:errors="*{email}" th:errorclass="err">		
+					th:errors="*{email}" th:errorclass="err">
 				</div>
 				<p class="err" th:text="${emailDuplication}">aa</p></td></tr>
 				<tr><td><label for="employeeNumber">EmployeeNumber</label></td>
@@ -44,7 +45,7 @@
 		<form action="#" th:action="@{/login}" method="POST">
     		<input type="submit" value="Sign out" />
   		</form>
-	
-		<div th:replace="layout :: footer"></div>	
+
+		<div th:replace="layout :: footer"></div>
 	</body>
 </html>

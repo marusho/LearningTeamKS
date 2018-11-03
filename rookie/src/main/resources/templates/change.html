@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <link rel="stylesheet" media="all"
 	th:href="@{/webjars/bootstrap/3.3.1/css/bootstrap.min.css}" />
+<link href="../static/css/common.css" th:href="@{/css/common.css}" rel="stylesheet">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Spring Boot Sample Site</title>
@@ -19,16 +20,16 @@
 
 			}
 
-		}	
+		}
 		</script>
 				<link href="../static/css/sampleCss.css" th:href="@{/css/sampleCss.css}"  rel="stylesheet">
 </head>
 <body>
-	
+
 	<div th:replace="layout :: header"></div>
 	<h1> Change Password</h1>
 		<p th:text="|Email:${email}|"></p>
-		
+
 		<p class="err" th:text="${err}"></p>
 		<form method="post" th:action="@{/change}" th:object="${formModel}" onSubmit="return check()" >
 			<input type="hidden" name="userId" th:value="*{userId}" />
@@ -36,10 +37,10 @@
 				<li class="err" th:each="error : ${#fields.detailedErrors()}"
 				th:text="${error.message}" />
 			</ol>
-			
+
 		    <ul>
 			<table class=showInfo>
-			
+
 			<tr><td><label for="password">Password</label></td>
 			<td><input type="password" name="password"/></td>
 			</tr>
@@ -50,10 +51,10 @@
 			<tr><td><button name="btn" type="submit" value="Change">Change</button></td></tr>
 			</table>
 			</ul>
-		
+
 		</form>
-	
-	
+
+
 		<form action="#" th:action="@{/login}" method="POST">
     		<input type="submit" value="Sign out" />
  	 </form>

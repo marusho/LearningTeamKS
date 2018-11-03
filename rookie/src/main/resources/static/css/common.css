@@ -1,3 +1,33 @@
 body {
 	padding: 30px
 }
+.navArea{
+  /* 縦グラデーションパターン */
+  /* background: linear-gradient(#05FBFF, #1E00FF); */
+  /* 横グラデーションパターン */
+  background: linear-gradient(-135deg, #E4A972, #9941D8) !important;
+  height: 80px !important;
+  font-family: 'Avenir','Helvetica Neue','Helvetica','Arial','Hiragino Sans','ヒラギノ角ゴシック',YuGothic,'Yu Gothic','メイリオ', Meiryo,'ＭＳ Ｐゴシック','MS PGothic';
+  width: 100% !important;
+}
+.menuTrArea {
+  height: 50px !important;
+}
+.menuTdArea {
+  height: 50px !important;
+  font-size: 15px !important;
+}
+.navTbodyArea>tr {
+  height: 30px !important;
+}
+.navTbodyArea>tr>td {
+  height: 20px;
+  text-align:center;
+  color:white;
+  width: 300px !important;
+  border: 2px #808080 solid;
+}
+.menuAnchor{
+  color:white;
+  font-size: 12px;
+}

@@ -12,6 +12,9 @@ spring:
         temp:
           use_jdbc_metadata_defaults: false
         dialect: org.hibernate.dialect.PostgreSQLDialect
+  mvc:
+    favicon:
+      enabled: false
 logging:
     level:
         org:

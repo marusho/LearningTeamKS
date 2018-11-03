@@ -6,26 +6,30 @@
 
 
 <header th:fragment="header">
-	<dl>
-		<dt>Menu</dt>
-		<dd>
-			<a
-				th:href="@{/page?size=&page=0&userName=&departmentName=&projectName=&gender=}">Top
-				Page</a>
-		</dd>
-		<dd>
-			<a th:href="@{/create}">New User</a>
-		</dd>
-		<dd>
-			<a th:href="@{/change}">Change Password</a>
-		</dd>
-		<dd>
-			<a th:href="@{/evaluations}">Evaluation Sheet</a>
-		</dd>
-		<dd>
-			<a th:href="@{/editmotivation}">Motivation Edit</a>
-		</dd>
-	</dl>
+	<table class="navArea">
+		<tbody class="navTbodyArea">
+			<tr class="menuTrArea">
+				<td colspan="5" class="menuTdArea">Menu</td>
+			</tr>
+			<tr>
+				<td>
+					<a class="menuAnchor" th:href="@{/page?size=&page=0&userName=&departmentName=&projectName=&gender=}">トップページ</a>
+				</td>
+				<td>
+					<a class="menuAnchor" th:href="@{/create}">ユーザ作成</a>
+				</td>
+				<td>
+					<a class="menuAnchor" th:href="@{/change}">パスワード変更</a>
+				</td>
+				<td>
+					<a class="menuAnchor" th:href="@{/evaluations}">評価シート</a>
+				</td>
+				<td>
+					<a class="menuAnchor" th:href="@{/editmotivation}">モチベーション編集</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
 </header>
 
 <footer th:fragment="footer">
