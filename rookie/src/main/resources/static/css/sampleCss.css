@@ -2,36 +2,16 @@
 	color: red;
 }
 
-h1 {
-	font-size: 40px;
-	border-bottom: double 5px #0000CC;
-}
-
 ul, dl {
-	background: #CCCCCC; /*背景色*/
-	border-top: solid #1e366a 1px; /*上のボーダー*/
-	border-bottom: solid #1e366a 1px; /*下のボーダー*/
+	background: radial-gradient(#FFFEFF, #D7FFFE) !important;
+	border-top: solid #1e366a 1px;
+	border-bottom: solid #1e366a 1px;
 	padding: 0.5em 0 0.5em 1.5em;
 }
 
 ul li, dl dt {
-	line-height: 1.5; /*文の行高*/
-	padding: 0.5em 0; /*前後の文との余白*/
-}
-
-.showInfo {
-	　font-size: 20px;
-	background: #CCCCCC; /*背景色*/
-	border-top: hidden #1e366a 1px; /*上のボーダー*/
-	border-bottom: hidden #1e366a 1px; /*下のボーダー*/
-	padding: 0.5em 0 0.5em 1.5em;
-	line-height: 1.5; /*文の行高*/
-	padding: 0.5em 0; /*前後の文との余白*/
-	background-position-x: right
-}
-
-.NoData {
-	font-size: 20px;
+	line-height: 1.5;
+	padding: 0.5em 0;
 }
 
 .tabed {
@@ -46,7 +26,7 @@ ul li, dl dt {
 	position: relative;
 	margin: 0;
 	padding: 0.5em 0.5em 1em;
-	display: inline-block; /* 要素を横並びにする */
+	display: inline-block;
 	font-size: 1em;
 	line-height: 1;
 	border-radius: 0.5em 0.5em 0 0;
@@ -56,13 +36,13 @@ ul li, dl dt {
 	transition: 0.2s;
 }
 
-.tabed>section>div { /*  > (子セレクタ）.tabedの直下のsectionの直下のdivにstyleを適用 */
+.tabed>section>div {
 	position: absolute;
 	left: 0;
 	top: 2em;
 	background-color: #B4C7F2;
 	padding: 1em;
-	display: none; /* jQueryでクラスselectedが付いていないものはdisplayされない */
+	display: none;
 	border-bottom: 2em solid #fff;
 }
 
@@ -73,7 +53,6 @@ ul li, dl dt {
 }
 
 .tabed .selected+div {
-	/*  + (隣接セレクタ）.tabed .selectedに隣接しているdivにstyleを適用 */
 	z-index: 100;
 	display: block;
 }

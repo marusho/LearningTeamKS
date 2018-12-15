@@ -1,11 +1,17 @@
 body {
 	padding: 30px
 }
+h1 {
+	font-size: 40px;
+	border-bottom: double 5px #0000CC;
+}
 .navArea{
   /* 縦グラデーションパターン */
   /* background: linear-gradient(#05FBFF, #1E00FF); */
   /* 横グラデーションパターン */
-  background: linear-gradient(-135deg, #E4A972, #9941D8) !important;
+  /* background: linear-gradient(-135deg, #E4A972, #9941D8) !important; */
+  /* 円グラデーションパターン */
+  background: radial-gradient(#accbee, #00c6fb) !important;
   height: 80px !important;
   font-family: 'Avenir','Helvetica Neue','Helvetica','Arial','Hiragino Sans','ヒラギノ角ゴシック',YuGothic,'Yu Gothic','メイリオ', Meiryo,'ＭＳ Ｐゴシック','MS PGothic';
   width: 100% !important;

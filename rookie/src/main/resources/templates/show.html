@@ -1,99 +1,129 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" 
-    	xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:th="http://www.thymeleaf.org">
 	<head>
+		<title>TOP PAGE</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<link rel="stylesheet" media="all" th:href="@{/webjars/bootstrap/3.3.1/css/bootstrap.min.css}" />
  		<link href="../static/css/common.css" th:href="@{/css/common.css}"  rel="stylesheet">
-		<title>Spring Boot Sample Site</title>
-				<link href="../static/css/sampleCss.css" th:href="@{/css/sampleCss.css}"  rel="stylesheet">
+		<link href="../static/css/sampleCss.css" th:href="@{/css/sampleCss.css}"  rel="stylesheet">
+		<link href="../static/css/show.css" th:href="@{/css/show.css}"  rel="stylesheet">
+		<script th:inline="javascript" th:src="@{js/jquery-3.3.1.min.js}"></script>
+		<script th:inline="javascript" th:src="@{js/snowfall.jquery.js}"></script>
+		<script type="text/javascript">
+			$(function() {
+				// 画像を降らせるsnowfall(オプションをすべて外すと雪が降る)
+				$(document).snowfall({
+					minSize : 10,				// 要素の最小サイズ
+					maxSize : 32,				// 要素の最大サイズ
+					minSpeed : 2,				// 要素の最小落下スピード
+					maxSpeed : 5,				// 要素の最大落下スピード
+					round : true,				// 要素に丸みを持たせる？
+					shadow : false,				// 要素に影をつける？
+					image : [
+						"/img/leaf1.png",
+						"/img/leaf2.png",
+						"/img/leaf3.png",
+						"/img/leaf4.png"
+					],
+					// collection : '#ground'		// 要素を指定の要素に積もらせる設定(画像を設定してもflakeColorで指定した要素の色が積もります)
+				  });
+			});
+		</script>
 	</head>
 	<body>
 		<div th:replace="layout :: header"></div>
-		
-		<h1>Users</h1>
-		<ul>
-   		<form action="/page" th:action="@{/page}" method="get">
-   		<!-- <table class="table"> -->
-		<table class=showInfo th:inline="text">
 
-			<tr>
-				<td>Name
-					<input type="text" name="userName">
- 				</td>
-			</tr>
-			<tr>
-				<td>DepartmentName
-					<input type="text" name="departmentName">
-				</td>
-			</tr>
-			<tr>
-				<td>ProjectName
-					<input type="text" name="projectName">
-				</td>
-			</tr>
-			<tr><td>Gender<select name="gender">
-				<option value="">--</option>
-				<option value="男性">男性</option>
-				<option value="女性">女性</option>
-			</select>
-			</td>
-			</tr>
-			<tr>
-				<td>
-					<input type="submit" value="Search">
-				</td>
-			</tr>
-			</table>
-			<table class="table table-hover">
-			<tr><td><h3>ID　</h3></td>
-				<td><h3>Name　</h3></td>
-				<td><h3>Infomation　</h3></td>
-				<td><h3>Edit　</h3></td>
-				<td><h3>Delete　</h3></td>
-				<td><h3>CareerVisionInfo　</h3></td>
-				<td><h3>CareerVisionEdit　</h3></td>
-				<td><h3>Evaluation　</h3></td>
-			</tr>
-			<tr th:each="obj : ${datalist}">
-			<td th:text="${obj.userId}"></td>
-			<td th:text="${obj.userName}"></td>
-			<td><a th:href="@{/info/{userId}(userId=${obj.userId})}">Info</a></td>
-			<td><a th:href="@{/edit/{userId}(userId=${obj.userId})}">Edit</a></td>
-			<td><a th:href="@{/delete/{userId}(userId=${obj.userId})}">Delete</a></td>
-			<td><a th:href="@{/CareerVisionShow/{userId}(userId=${obj.userId}) }" target="_blank" >CareerVisionInfo</a></td>
-			<td><a th:href="@{/CareerVisionEdit/{userId}(userId=${obj.userId})}" target="_blank" >CareerVisionEdit</a></td>
-			<td><a th:href="@{/evaluation/{userId}(userId=${obj.userId})}">Evaluation</a></td>
-			</tr>
-			<tr><td>
-			<p th:unless="${listSize}" class="NoData">
-			NO DATA
-			</p>
-			</td></tr>
-		</table>
+		<h1>社員一覧</h1>
+		<div>
+			<form action="/page" th:action="@{/page}" method="get">
+				<!-- <table class="table"> -->
+				<table class=searchCond th:inline="text">
+					<tr>
+						<td class="searchLabel">
+							名前
+		 				</td>
+						<td class="searchObject">
+							<input type="text" name="userName">
+		 				</td>
+						<td class="searchLabel">
+							部署
+						</td>
+						<td class="searchObject">
+							<input type="text" name="departmentName">
+						</td>
+					</tr>
+					<tr>
+						<td class="searchLabel">
+							参画プロジェクト
+						</td>
+						<td class="searchObject">
+							<input type="text" name="projectName">
+						</td>
+						<td class="searchLabel">
+							性別
+						</td>
+						<td class="searchObject">
+							<select name="gender">
+								<option value="">--</option>
+								<option value="男性">男性</option>
+								<option value="女性">女性</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td class="btnRight">
+							<input type="submit" value="Search">
+						</td>
+					</tr>
+				</table>
+				<table class="searchList">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>Name</th>
+							<th>Infomation</th>
+							<th>Edit</th>
+							<th>Delete</th>
+							<th>CareerVisionInfo</th>
+							<th>CareerVisionEdit</th>
+							<th>Evaluation</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="obj : ${datalist}">
+							<td th:text="${obj.userId}"></td>
+							<td th:text="${obj.userName}"></td>
+							<td><a th:href="@{/info/{userId}(userId=${obj.userId})}">Info</a></td>
+							<td><a th:href="@{/edit/{userId}(userId=${obj.userId})}">Edit</a></td>
+							<td><a th:href="@{/delete/{userId}(userId=${obj.userId})}">Delete</a></td>
+							<td><a th:href="@{/CareerVisionShow/{userId}(userId=${obj.userId}) }" target="_blank" >CareerVisionInfo</a></td>
+							<td><a th:href="@{/CareerVisionEdit/{userId}(userId=${obj.userId})}" target="_blank" >CareerVisionEdit</a></td>
+							<td><a th:href="@{/evaluation/{userId}(userId=${obj.userId})}">Evaluation</a></td>
+						</tr>
+						<tr th:unless="${listSize}" >
+							<td colspan="8">NO DATA</td>
+						</tr>
+					</tbody>
+				</table>
+			</form>
+		</div>
 
-		</ul>
-		</form>
-		
 		<div th:if="${listSize}" th:with="s=${listSize}">
-			
 			<p th:unless="${s==1}">
 			<ul>
-			
-			<li th:each='i : ${#numbers.sequence(0, datalist.totalPages-1)}' th:class="(${i}==${datalist.getNumber()})? 'active' : ''" style="display:inline">
-                    <span th:if='${i}==${datalist.getNumber()}' th:text='${i+1}'>1</span>
-                    <a th:if='${i}!=${datalist.getNumber()}' th:href="@{/page?size=20&page={i}&userName={name}&departmentName={departmentName}&projectName={projectName}&gender={gender}(i=${i},name=${name},departmentName=${departmentName},projectName=${projectName},gender=${thisGender})}">
-                        <span th:text='${i+1}'>1</span>
-                       </a>
-                       
-                    
-                </li>
-                </ul>
-		</div> 
-	
-    	<form action="#" th:action="@{/login}" method="POST">
+				<li th:each='i : ${#numbers.sequence(0, datalist.totalPages-1)}' th:class="(${i}==${datalist.getNumber()})? 'active' : ''" style="display:inline">
+					<span th:if='${i}==${datalist.getNumber()}' th:text='${i+1}'>1</span>
+					<a th:if='${i}!=${datalist.getNumber()}' th:href="@{/page?size=20&page={i}&userName={name}&departmentName={departmentName}&projectName={projectName}&gender={gender}(i=${i},name=${name},departmentName=${departmentName},projectName=${projectName},gender=${thisGender})}">
+						<span th:text='${i+1}'>1</span>
+					   </a>
+				</li>
+			</ul>
+		</div>
+
+		<form action="#" th:action="@{/login}" method="POST">
    			<input type="submit" value="Sign out" />
 		</form>
-		<div th:replace="layout :: footer"></div>	
+		<div th:replace="layout :: footer"></div>
 	</body>
 </html>
