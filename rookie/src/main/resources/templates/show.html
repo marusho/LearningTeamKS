@@ -1,13 +1,20 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
+<<<<<<< HEAD
 		xmlns:th="http://www.thymeleaf.org">
+=======
+    	xmlns:th="http://www.thymeleaf.org">
+>>>>>>> branch 'master' of https://github.com/marusho/LearningTeamKS.git
 	<head>
 		<title>TOP PAGE</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<link rel="stylesheet" media="all" th:href="@{/webjars/bootstrap/3.3.1/css/bootstrap.min.css}" />
  		<link href="../static/css/common.css" th:href="@{/css/common.css}"  rel="stylesheet">
 		<link href="../static/css/sampleCss.css" th:href="@{/css/sampleCss.css}"  rel="stylesheet">
+<<<<<<< HEAD
 		<link href="../static/css/show.css" th:href="@{/css/show.css}"  rel="stylesheet">
+=======
+>>>>>>> branch 'master' of https://github.com/marusho/LearningTeamKS.git
 		<script th:inline="javascript" th:src="@{js/jquery-3.3.1.min.js}"></script>
 		<script th:inline="javascript" th:src="@{js/snowfall.jquery.js}"></script>
 		<script type="text/javascript">
@@ -33,6 +40,15 @@
 	</head>
 	<body>
 		<div th:replace="layout :: header"></div>
+<<<<<<< HEAD
+=======
+
+		<h1>Users</h1>
+		<ul>
+   		<form action="/page" th:action="@{/page}" method="get">
+   		<!-- <table class="table"> -->
+		<table class=showInfo th:inline="text">
+>>>>>>> branch 'master' of https://github.com/marusho/LearningTeamKS.git
 
 		<h1>社員一覧</h1>
 		<div>
@@ -109,9 +125,20 @@
 			</form>
 		</div>
 
+<<<<<<< HEAD
+=======
+		</ul>
+		</form>
+
+>>>>>>> branch 'master' of https://github.com/marusho/LearningTeamKS.git
 		<div th:if="${listSize}" th:with="s=${listSize}">
+<<<<<<< HEAD
+=======
+
+>>>>>>> branch 'master' of https://github.com/marusho/LearningTeamKS.git
 			<p th:unless="${s==1}">
 			<ul>
+<<<<<<< HEAD
 				<li th:each='i : ${#numbers.sequence(0, datalist.totalPages-1)}' th:class="(${i}==${datalist.getNumber()})? 'active' : ''" style="display:inline">
 					<span th:if='${i}==${datalist.getNumber()}' th:text='${i+1}'>1</span>
 					<a th:if='${i}!=${datalist.getNumber()}' th:href="@{/page?size=20&page={i}&userName={name}&departmentName={departmentName}&projectName={projectName}&gender={gender}(i=${i},name=${name},departmentName=${departmentName},projectName=${projectName},gender=${thisGender})}">
@@ -122,6 +149,21 @@
 		</div>
 
 		<form action="#" th:action="@{/login}" method="POST">
+=======
+
+			<li th:each='i : ${#numbers.sequence(0, datalist.totalPages-1)}' th:class="(${i}==${datalist.getNumber()})? 'active' : ''" style="display:inline">
+                    <span th:if='${i}==${datalist.getNumber()}' th:text='${i+1}'>1</span>
+                    <a th:if='${i}!=${datalist.getNumber()}' th:href="@{/page?size=20&page={i}&userName={name}&departmentName={departmentName}&projectName={projectName}&gender={gender}(i=${i},name=${name},departmentName=${departmentName},projectName=${projectName},gender=${thisGender})}">
+                        <span th:text='${i+1}'>1</span>
+                       </a>
+
+
+                </li>
+                </ul>
+		</div>
+
+    	<form action="#" th:action="@{/login}" method="POST">
+>>>>>>> branch 'master' of https://github.com/marusho/LearningTeamKS.git
    			<input type="submit" value="Sign out" />
 		</form>
 		<div th:replace="layout :: footer"></div>
