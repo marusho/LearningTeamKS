@@ -68,6 +68,8 @@ public class UserForm {
 	// 	@NotEmpty
 	// 	@NotNull
 	private String selectedProject3;
+	
+	private Date birthday;
 
 	public MyData mydata;
 
@@ -223,6 +225,14 @@ public class UserForm {
 
 	public void setSelectedEngineerLevel(String selectedEngineerLevel) {
 		this.selectedEngineerLevel = selectedEngineerLevel;
+	}
+	
+	public Date getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
 	}
 
 }
