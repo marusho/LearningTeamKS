@@ -28,7 +28,7 @@
 			}else if(document.form1.selectedProject3.value==""){
 				flag=1;
 			}
-			
+
 			if(flag){
 
 				window.alert('必須項目に未入力がありました。 \n無所属の場合は「無所属」を入れてください。'); // 入力漏れがあれば警告ダイアログを表示
@@ -41,15 +41,15 @@
 
 			}
 
-			
+
 		}
-		
+
 		</script>
-	
+
 	</head>
 	<body>
 		<div th:replace="layout :: header"></div>
-	
+
 		<h1>Edit page</h1>
 		<h2>全て埋めてください</h2>
 			<form method="post" th:action="@{/editconfirm}" th:object="${formModel}" name="form1" onSubmit="return check()">
@@ -74,16 +74,16 @@
 
 				<!-- <tr><td><label for="leaveDate">LeaveDate</label></td>
 				<td><input type="date" name="leaveDate"/></td></tr> -->
-				
-				<tr><td>Department1</td></tr>
-				
+
+				<tr><td>所属部署(メイン)</td></tr>
+
 				<tr><td>
 				<p th:text="${first}"></p>
 				</td><td><select id="singleSelect" name="selectedItem1">
      				<option value="">---</option>
-    				<option th:each="item : ${selectItems}" th:value="${item.value}" th:text="${item.value}" th:selected="${item.value} == *{selectedItem1}">singleSelect</option>
+    				<option th:each="item : ${selectItems}" th:value="${item.value}" th:text="${item.value}" th:selected="${item.value} == ${first}">singleSelect</option>
 				</select></td></tr>
-				<tr><td>Department2</td></tr>
+				<tr><td>所属部署(サブメイン)</td></tr>
 				<tr>
 				<td>
 				<p th:text="${second}"></p></td>
@@ -91,16 +91,16 @@
      				<option value="" >---</option>
     				<option th:each="item : ${selectItems}" th:value="${item.value}" th:text="${item.value}" th:selected="${item.value} == *{selectedItem2}">singleSelect</option>
 				</select></td></tr>
-				<tr><td>Department3</td>
+				<tr><td>所属部署(サブ)</td>
 				<tr><td>
-				
+
 				<p th:text="${third}"></p>
 				</td>
 				<td><select id="singleSelect" name="selectedItem3">
      				<option value="" >---</option>
     				<option th:each="item : ${selectItems}" th:value="${item.value}" th:text="${item.value}" th:selected="${item.value} == *{selectedItem3}">singleSelect</option>
 				</select></td></tr>
-				
+
 				<!-- 案件選択プルダウン(ここから) -->
 				<tr><th>Project1</th></tr>
 				<tr>
@@ -111,7 +111,7 @@
 		                            th:value="${project.value}"
 		                            th:text="${project.value}"
 		                            th:selected="${project.value}==*{selectedProject1}">SingleSelect</option></select></td></tr>
-                
+
                 <tr><th>Project2</th></tr>
                 <tr><td><p th:text=${psecond}></p></td><td><select id = "singleSelect" name="selectedProject2">
 		                    <option value="" >---</option>
@@ -119,7 +119,7 @@
 		                            th:value="${project.value}"
 		                            th:text="${project.value}"
 		                            th:selected="${project.value}==*{selectedProject2}">SingleSelect</option></select></td></tr>
-                
+
                 <tr><th>Project3</th></tr>
                 <tr><td><p th:text=${pthird}></p></td><td><select id = "singleSelect" name="selectedProject3">
 		                    <option value="" >---</option>
@@ -136,7 +136,7 @@
 			<td><p th:text=${engineer}></p>
 			<td><select id = "singleSelect" name="selectedEngineerLevel">
 			    <option value="" >---</option>
-			    <option th:value="1"                
+			    <option th:value="1"
 			        th:selected="${engineerLevel}==1">1</option>
 			    <option th:value="2"
 			        th:selected="${engineerLevel}==2">2</option>
@@ -149,13 +149,16 @@
 			    <option th:value="4アーキ"
 			        th:selected="${engineerLevel}==4アーキ">4アーキ</option>
 			    <option th:value="5アーキ"
-			        th:selected="${engineerLevel}==5アーキ">5アーキ</option>                      
+			        th:selected="${engineerLevel}==5アーキ">5アーキ</option>
 			    <option th:value="4コンサル"
 			        th:selected="${engineerLevel}==4コンサル">4コンサル</option>
 			    <option th:value="5コンサル"
 			        th:selected="${engineerLevel}==5コンサル">5コンサル</option>
 			</select></td></tr>
-				
+				<tr><td><label for="imagePath">画像イメージパス</label></td>
+				<td><input type="text" name="imagePath" th:value="@{${imagePath}}" /></td>
+			</tr>
+
 				<tr><td><input type="submit" value="Update" /></td></tr>
 			</table>
 			</ul>

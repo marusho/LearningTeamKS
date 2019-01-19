@@ -69,6 +69,8 @@ public class UserForm {
 	// 	@NotNull
 	private String selectedProject3;
 
+	private String imagePath;
+
 	public MyData mydata;
 
 	private String selectedEngineerLevel;
@@ -179,6 +181,20 @@ public class UserForm {
 
 	public String getSelectedItem3() {
 		return selectedItem3;
+	}
+
+	/**
+	 * @return imagePath
+	 */
+	public String getImagePath() {
+		return imagePath;
+	}
+
+	/**
+	 * @param imagePath セットする imagePath
+	 */
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
 	}
 
 	public void setSelectedItem3(String selectedItem3) {

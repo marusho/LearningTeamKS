@@ -375,6 +375,7 @@ public class HeloController {
 		// プルダウンのための情報を渡す
 		mav.addObject("selectItems", getSelectedItems());
 		mav.addObject("selectProjects", getSelectedProjects());
+		mav.addObject("imagePath", mydata.getImagePath());
 		return mav;
 	}
 
@@ -433,6 +434,7 @@ public class HeloController {
 		mydata.setUserName(data.getUserName());
 		mydata.setEmail(data.getEmail());
 		mydata.setEngineerLevel(data.getSelectedEngineerLevel());
+		mydata.setImagePath(data.getImagePath());
 
 		List<MiddleDepartment> datalist = recordrepo.findByUserId((int) data.getUserId());
 		for (int num = 0; num < datalist.size(); num++) {

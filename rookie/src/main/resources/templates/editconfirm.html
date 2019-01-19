@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" 
+<html xmlns="http://www.w3.org/1999/xhtml"
     	xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -42,6 +42,7 @@
 				</div>
 				<input type="hidden" name="password" th:value="*{encodedPassword}" />
 				<input type="hidden" name="userId" th:value="*{userId}" />
+				<input type="hidden" name="imagePath" th:value="*{imagePath}" />
 				<ul>
 				<table class="showInfo">
 				<tr><td><p th:text="|ID:*{userId}|"></p></td></tr>
@@ -56,14 +57,16 @@
 				<tr><td><p th:text="|Project2: *{selectedProject2}|"></p></td></tr>
 				<tr><td><p th:text="|Project3: *{selectedProject3}|"></p></td></tr>
 				<tr><td><p th:text="|EngineerLevel: *{selectedEngineerLevel}|"></p></td></tr>
+				<tr><td><p th:text="|imagePath: *{imagePath}|"></p></td></tr>
+
 				<tr><td><input type="submit" value="Update"/></td></tr>
 				<tr><td><a th:href="@{/edit/{id}(id=${formModel.userId})}">
 				<button type="button">back</button>
 				</a></td></tr>
 		</table>
 		</ul>
-		</form> 
+		</form>
 
-		<div th:replace="layout :: footer"></div>	
+		<div th:replace="layout :: footer"></div>
 	</body>
 </html>
