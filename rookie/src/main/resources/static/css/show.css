@@ -35,6 +35,3 @@
     line-height: 1.42857143;
     border : solid #1e366a 1px;
 }
-.searchList>thead>tr>th, .searchList>tbody>tr>th {
-    font-size: 20px;
-}

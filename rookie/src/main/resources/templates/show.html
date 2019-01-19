@@ -15,16 +15,21 @@
 				// 画像を降らせるsnowfall(オプションをすべて外すと雪が降る)
 				$(document).snowfall({
 					minSize : 10,				// 要素の最小サイズ
-					maxSize : 32,				// 要素の最大サイズ
-					minSpeed : 2,				// 要素の最小落下スピード
-					maxSpeed : 5,				// 要素の最大落下スピード
+					maxSize : 50,				// 要素の最大サイズ
+					minSpeed : 1,				// 要素の最小落下スピード
+					maxSpeed : 2,				// 要素の最大落下スピード
 					round : true,				// 要素に丸みを持たせる？
 					shadow : false,				// 要素に影をつける？
 					image : [
 						"/img/leaf1.png",
 						"/img/leaf2.png",
 						"/img/leaf3.png",
-						"/img/leaf4.png"
+						"/img/leaf4.png",
+						"/img/aiko1.jpg",
+						"/img/yosshi1.jpg",
+						"/img/jun1.jpg",
+						"/img/kokami_team1.jpg",
+						"/img/motti1.jpg"
 					],
 					// collection : '#ground'		// 要素を指定の要素に積もらせる設定(画像を設定してもflakeColorで指定した要素の色が積もります)
 				  });
@@ -79,29 +84,38 @@
 				<table class="searchList">
 					<thead>
 						<tr>
-							<th>ID</th>
-							<th>Name</th>
-							<th>Infomation</th>
-							<th>Edit</th>
-							<th>Delete</th>
-							<th>CareerVisionInfo</th>
-							<th>CareerVisionEdit</th>
-							<th>Evaluation</th>
+							<th>No</th>
+							<th style="display:none;">ID</th>
+							<th>名前</th>
+							<th>部署</th>
+							<th>現場</th>
+							<th>参画プロジェクト</th>
+							<th>性別</th>
+							<th>詳細</th>
+							<th>編集</th>
+							<th>削除</th>
+							<th colspan="2">キャリアビジョン</th>
+							<th>モチベーション</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="obj : ${datalist}">
-							<td th:text="${obj.userId}"></td>
+						<tr th:each="obj, stat : ${datalist}">
+							<td th:text="${stat.count}"></td>
+							<td th:text="${obj.userId}" style="display:none;"></td>
 							<td th:text="${obj.userName}"></td>
-							<td><a th:href="@{/info/{userId}(userId=${obj.userId})}">Info</a></td>
-							<td><a th:href="@{/edit/{userId}(userId=${obj.userId})}">Edit</a></td>
-							<td><a th:href="@{/delete/{userId}(userId=${obj.userId})}">Delete</a></td>
-							<td><a th:href="@{/CareerVisionShow/{userId}(userId=${obj.userId}) }" target="_blank" >CareerVisionInfo</a></td>
-							<td><a th:href="@{/CareerVisionEdit/{userId}(userId=${obj.userId})}" target="_blank" >CareerVisionEdit</a></td>
-							<td><a th:href="@{/evaluation/{userId}(userId=${obj.userId})}">Evaluation</a></td>
+							<td th:text="システムインテグレーション事業部[項目追加予定]"></td>
+							<td th:text="SBT[項目追加予定]"></td>
+							<td th:text="スマートプロビジョニング[項目追加予定]"></td>
+							<td th:text="${genderList[obj.gender]}"></td>
+							<td><a th:href="@{/info/{userId}(userId=${obj.userId})}">参照</a></td>
+							<td><a th:href="@{/edit/{userId}(userId=${obj.userId})}">編集</a></td>
+							<td><a th:href="@{/delete/{userId}(userId=${obj.userId})}">削除</a></td>
+							<td><a th:href="@{/CareerVisionShow/{userId}(userId=${obj.userId}) }" target="_blank" >参照</a></td>
+							<td><a th:href="@{/CareerVisionEdit/{userId}(userId=${obj.userId})}" target="_blank" >編集</a></td>
+							<td><a th:href="@{/evaluation/{userId}(userId=${obj.userId})}">参照</a></td>
 						</tr>
 						<tr th:unless="${listSize}" >
-							<td colspan="8">NO DATA</td>
+							<td colspan="9">NO DATA</td>
 						</tr>
 					</tbody>
 				</table>

@@ -84,6 +84,8 @@ public class HeloController {
 	@Autowired
 	MiddleProjectRepository middlerepo;
 
+	private String[] GENDER_LIST = {"男性","女性"};
+
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create(@ModelAttribute("formModel") UserCreateForm mydata, ModelAndView mav) {
 		// ユーザー登録画面へ遷移
@@ -266,6 +268,7 @@ public class HeloController {
 		mav.addObject("size", pageable.getPageSize());
 		mav.addObject("userName", userName);
 		mav.addObject("gender", gender);
+		mav.addObject("genderList", GENDER_LIST);
 		return mav;
 	}
 
@@ -623,10 +626,10 @@ public class HeloController {
 		long num = orgrepo.count();
 		String list[] = new String[(int) num];
 		// 組織マスタのデータを取得
-		for (int i = 1; i <= num; i++) {
-			Department data = orgrepo.findByDepartmentId(i);
+		for (int i = 0; i < num; i++) {
+			Department data = orgrepo.findByDepartmentId(4);
 			String orgName = data.getDepartmentName();
-			list[i - 1] = orgName;
+			list[i] = orgName;
 		}
 		// マップに値を格納
 		for (int i = 0; i < list.length; i++) {
@@ -643,10 +646,10 @@ public class HeloController {
 		Map<Integer, String> selectMap = new LinkedHashMap<Integer, String>();
 		long num = projrepo.count();
 		String list[] = new String[(int) num];
-		for (int i = 1; i <= num; i++) {
-			Project data = projrepo.findByProjectId(i);
+		for (int i = 0; i < num; i++) {
+			Project data = projrepo.findByProjectId(4);
 			String projName = data.getProjectName();
-			list[i - 1] = projName;
+			list[i] = projName;
 		}
 		for (int i = 0; i < list.length; i++) {
 			int j = i + 1;

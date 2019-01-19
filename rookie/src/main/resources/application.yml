@@ -19,12 +19,12 @@ spring:
     neo4j:
       username: neo4j
       password: K787s84m
-    mongodb:
-      username: mongodb
-      password: mongodb
-      host: localhost
-      port: 27017
-      database: test
+#    mongodb:
+#      username: mongodb
+#      password: mongodb
+#      host: localhost
+#      port: 27017
+#      database: test
 #      uri: mongodb://user:password@localhost/test
 logging:
     level:
