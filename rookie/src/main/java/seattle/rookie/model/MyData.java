@@ -93,6 +93,10 @@ public class MyData implements UserDetails {
 	@Column(nullable=true)
 	private float version;
 
+
+	@Column(name="image_path")
+	private String imagePath;
+
 	@Override
 	public String getPassword() {
 		return password;
@@ -266,6 +270,20 @@ public class MyData implements UserDetails {
 
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+
+	/**
+	 * @return imagePath
+	 */
+	public String getImagePath() {
+		return imagePath;
+	}
+
+	/**
+	 * @param imagePath セットする imagePath
+	 */
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
 	}
 
 }
