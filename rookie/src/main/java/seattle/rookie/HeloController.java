@@ -2,13 +2,10 @@ package seattle.rookie;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -57,22 +54,16 @@ public class HeloController {
 
 	@Autowired
 	MyDataRepository repository;
-
 	@PersistenceContext
 	EntityManager entityManager;
-
 	@Autowired
 	DepartmentRepository orgrepo;
-
 	@Autowired
 	MiddleDepartmentRepository recordrepo;
-
 	@Autowired
 	MotivationRepository motirepo;
-
 	@Autowired
 	ResultRepository resultrepo;
-
 	@Autowired
 	PremiseRepository premiserepo;
 	/*
@@ -80,7 +71,6 @@ public class HeloController {
 	 */
 	@Autowired
 	ProjectRepository projrepo;
-
 	@Autowired
 	MiddleProjectRepository middlerepo;
 
@@ -127,7 +117,6 @@ public class HeloController {
 				mav.setViewName("create");
 				res = mav;
 			}
-
 		} else {
 			mav.setViewName("create");
 			Map<Integer, String> selectMap = new LinkedHashMap<Integer, String>();
@@ -138,7 +127,6 @@ public class HeloController {
 			mav.addObject("emailDuplication", "this email is already used");
 			res = mav;
 		}
-
 		return res;
 	}
 
@@ -151,7 +139,6 @@ public class HeloController {
 	}
 
 	// ユーザー登録処理
-
 	@RequestMapping(value = "/createform", method = RequestMethod.POST)
 	@Transactional(readOnly = false)
 	public ModelAndView form(@ModelAttribute("formModel") @Validated UserCreateForm userForm, BindingResult result, ModelAndView mov) {
@@ -269,113 +256,6 @@ public class HeloController {
 		return mav;
 	}
 	
-	/**
-	 * 編集画面
-	 * @param userId
-	 * @param mav
-	 * @return
-	 */
-	@RequestMapping(value = "/edit/{userId}", method = RequestMethod.GET)
-	public ModelAndView edit(@PathVariable("userId") int userId, ModelAndView mav) {
-		mav.setViewName("edit");
-		mav.addObject("title", "edit mydata.");
-		UserForm data = new UserForm();
-		// idからデータを検索
-		Optional<MyData> dataOptional = repository.findById((long) userId);
-		// MyData型に変換
-		MyData mydata = dataOptional.get();
-
-		if (mydata.getDeleteFlag() != 0) {
-			mav.setViewName("ErrorMsg");
-			mav.addObject("msg", "500(Internal Server Error): データにアクセスできません。");
-			return mav;
-		}
-		// 情報をセット
-		data.setUserId(mydata.getUserId());
-		data.setEmail(mydata.getEmail());
-		data.setUserName(mydata.getUserName());
-		data.setBirthday(mydata.getBirthDate());
-		data.setEngineerLevel(mydata.getEngineerLevel());
-
-		// 組織中間テーブルからデータを取得
-		List<MiddleDepartment> list = recordrepo.findByUserIdOrderByIdDesc(userId);
-		// 組織名のリスト
-		List<String> orgList = new ArrayList<String>();
-		// 組織名リストに名前を格納
-		for (int i = 0; i < list.size(); i++) {
-			int depId = list.get(i).getDepartmentId();
-			orgList.add(orgrepo.findByDepartmentId(depId).getDepartmentName());
-		}
-		// 格納した名前の重複を消す
-		List<String> orgNewList = new ArrayList<String>(new LinkedHashSet<>(orgList));
-		String org[] = new String[3];
-		// 組織選択プルダウンにセットする情報を選択
-		if (3 <= orgNewList.size()) {
-			for (int j = 0; j < 3; j++) {
-				org[j] = orgNewList.get(j);
-			}
-		} else if (2 == orgNewList.size()) {
-			for (int j = 0; j < 2; j++) {
-				org[j] = orgNewList.get(j);
-			}
-			org[2] = "無所属";
-		} else if (1 == orgList.size()) {
-			org[0] = orgNewList.get(0);
-			org[1] = "無所属";
-			org[2] = "無所属";
-		} else {
-			org[0] = "無所属";
-			org[1] = "無所属";
-			org[2] = "無所属";
-		}
-		// プルダウンの初期値ための情報を渡す
-		/*
-		 * Cの付け足し
-		 */
-		// 組織中間テーブルからデータを取得
-		List<MiddleProject> projList = middlerepo.findByUserIdOrderByIdDesc(userId);
-		List<String> pjList = new ArrayList<String>();
-		for (int i = 0; i < projList.size(); i++) {
-			int projId = projList.get(i).getProjectId();
-			pjList.add(projrepo.findByProjectId(projId).getProjectName());
-		}
-		List<String> projNewList = new ArrayList<String>(new LinkedHashSet<>(pjList));
-		String proj[] = new String[3];
-
-		if (3 <= projNewList.size()) {
-			for (int j = 0; j < 3; j++) {
-				proj[j] = projNewList.get(j);
-			}
-		} else if (2 == projNewList.size()) {
-			for (int j = 0; j < 2; j++) {
-				proj[j] = projNewList.get(j);
-			}
-			proj[2] = "無所属";
-		} else if (1 == projNewList.size()) {
-			proj[0] = projNewList.get(0);
-			proj[1] = "無所属";
-			proj[2] = "無所属";
-		} else {
-			proj[0] = "無所属";
-			proj[1] = "無所属";
-			proj[2] = "無所属";
-		}
-
-		mav.addObject("first", org[0]);
-		mav.addObject("second", org[1]);
-		mav.addObject("third", org[2]);
-
-		mav.addObject("pfirst", proj[0]);
-		mav.addObject("psecond", proj[1]);
-		mav.addObject("pthird", proj[2]);
-		// mav.addObject("engineerlevel", data);
-
-		mav.addObject("formModel", data);
-		// プルダウンのための情報を渡す
-		mav.addObject("selectItems", getSelectedItems());
-		mav.addObject("selectProjects", getSelectedProjects());
-		return mav;
-	}
 
 	// 編集確認画面
 	@RequestMapping(value = "/editconfirm", method = RequestMethod.POST)
