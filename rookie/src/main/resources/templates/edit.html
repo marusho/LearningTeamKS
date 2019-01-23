@@ -78,7 +78,7 @@
 
 				<tr>
 					<td><label for="birthday">Birthday</label></td>
-					<td><input type="date" name="calendar" max="9999-12-31" th:value="*{birthday}" />
+					<td><input type="date" name="birthday" max="9999-12-31" th:value="*{birthday}" />
 						<div class="err" th:errors="*{birthday}" th:errorclass="err"></div>
 						<p class="err" th:text="${emailDuplication}"></p>
 					</td>

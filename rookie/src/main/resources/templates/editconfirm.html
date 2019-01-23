@@ -15,6 +15,7 @@
 			<form method="post" th:action="@{/edit}" th:object="${formModel}">
 				<input type="hidden" name="userName" th:value="*{userName}" />
 				<input type="hidden" name="email" th:value="*{email}" />
+				<input type="hidden" name="birthday" th:value="*{birthday}" />
 				<!-- <div th:unless="*{leaveDate}==''">
 				<input type="hidden" name="leaveDate" th:value="*{leaveDate}" />
 				</div> -->
@@ -47,6 +48,7 @@
 				<tr><td><p th:text="|ID:*{userId}|"></p></td></tr>
 				<tr><td><p th:text="|Name: *{userName}|"></p></td></tr>
 				<tr><td><p th:text="|Email: *{email}|"></p></td></tr>
+				<tr><td><p th:text="|Birthday: *{birthday}|"></p></td></tr>
 				<!-- <tr><td><p th:text="|EnteredDate: *{enteredDate}|"></p></td></tr> -->
 				<!-- <tr><td><p th:text="|LeaveDate: *{leaveDate}|"></p></td></tr> -->
 				<tr><td><p th:text="|Department1: *{selectedItem1}|"></p></td></tr>
