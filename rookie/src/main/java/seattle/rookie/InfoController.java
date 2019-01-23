@@ -104,7 +104,7 @@ public class InfoController {
 		}
 		mav.addObject("userName", mydata.getUserName());
 		mav.addObject("enterDate", mydata.getEnterDate());
-		mav.addObject("birthdate", mydata.getBirthDate());
+		mav.addObject("birthday", mydata.getBirthDate());
 		mav.addObject("leaveDate", mydata.getLeaveDate());
 		mav.addObject("gender", gender);
 		mav.addObject("enteredate", mydata);
