@@ -154,9 +154,7 @@ public class HeloController {
 
 	@RequestMapping(value = "/createform", method = RequestMethod.POST)
 	@Transactional(readOnly = false)
-	public ModelAndView form(
-
-			@ModelAttribute("formModel") @Validated UserCreateForm userForm, BindingResult result, ModelAndView mov) {
+	public ModelAndView form(@ModelAttribute("formModel") @Validated UserCreateForm userForm, BindingResult result, ModelAndView mov) {
 		ModelAndView res = null;
 		MyData mydata = new MyData();
 
@@ -216,7 +214,6 @@ public class HeloController {
 			mov.addObject("msg", "sorry, error is occured");
 			res = mov;
 		}
-
 		return res;
 	}
 
@@ -271,11 +268,13 @@ public class HeloController {
 		mav.addObject("genderList", GENDER_LIST);
 		return mav;
 	}
-
-	// 編集画面
-
-	// 修正
-
+	
+	/**
+	 * 編集画面
+	 * @param userId
+	 * @param mav
+	 * @return
+	 */
 	@RequestMapping(value = "/edit/{userId}", method = RequestMethod.GET)
 	public ModelAndView edit(@PathVariable("userId") int userId, ModelAndView mav) {
 		mav.setViewName("edit");
@@ -295,6 +294,7 @@ public class HeloController {
 		data.setUserId(mydata.getUserId());
 		data.setEmail(mydata.getEmail());
 		data.setUserName(mydata.getUserName());
+		data.setBirthday(mydata.getBirthDate());
 		data.setEngineerLevel(mydata.getEngineerLevel());
 
 		// 組織中間テーブルからデータを取得
@@ -318,7 +318,6 @@ public class HeloController {
 			for (int j = 0; j < 2; j++) {
 				org[j] = orgNewList.get(j);
 			}
-
 			org[2] = "無所属";
 		} else if (1 == orgList.size()) {
 			org[0] = orgNewList.get(0);
@@ -432,6 +431,7 @@ public class HeloController {
 		// 名前、Emailを更新
 		mydata.setUserName(data.getUserName());
 		mydata.setEmail(data.getEmail());
+		mydata.setBirthDate(data.getBirthday());
 		mydata.setEngineerLevel(data.getSelectedEngineerLevel());
 
 		List<MiddleDepartment> datalist = recordrepo.findByUserId((int) data.getUserId());
@@ -627,7 +627,7 @@ public class HeloController {
 		String list[] = new String[(int) num];
 		// 組織マスタのデータを取得
 		for (int i = 0; i < num; i++) {
-			Department data = orgrepo.findByDepartmentId(4);
+			Department data = orgrepo.findByDepartmentId(1);
 			String orgName = data.getDepartmentName();
 			list[i] = orgName;
 		}
@@ -647,7 +647,7 @@ public class HeloController {
 		long num = projrepo.count();
 		String list[] = new String[(int) num];
 		for (int i = 0; i < num; i++) {
-			Project data = projrepo.findByProjectId(4);
+			Project data = projrepo.findByProjectId(1);
 			String projName = data.getProjectName();
 			list[i] = projName;
 		}
