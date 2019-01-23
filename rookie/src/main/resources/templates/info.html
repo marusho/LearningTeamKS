@@ -6,46 +6,48 @@
  		<link href="../static/css/common.css" th:href="@{/css/common.css}"  rel="stylesheet">
   <title>Spring Boot Sample Site</title>
    <link href="../static/css/sampleCss.css" th:href="@{/css/sampleCss.css}"  rel="stylesheet">
+   <link href=".../static/css/info.css"
+    th:href="@{/css/info.css}" rel="stylesheet">
  </head>
  <body>
   <div th:replace="layout :: header"></div>
  
-  <h1>Info</h1>
+  <h1>基本情報</h1>
   	<table>
   		<tr><td>
-  		 	<h3>Name</h3>
+  		 	<h3>氏名</h3>
   		 </td></tr>
   		 <tr><td>
   		 	<p th:text=${userName}></p>	
   		 </td></tr>
   		 <tr><td>
-  		 	<h3>Gender</h3>
+  		 	<h3>性別</h3>
   		 </td></tr>
   		 <tr><td>
   		 	<p th:text=${gender}></p>	
   		 </td></tr> 
   		 <tr><td>
-  		 	<h3>Department</h3>
+  		 	<h3>部署</h3>
   		 </td></tr>
 		 <tr th:each="obj : ${orgData}">
 		 <td th:text="${obj}"></td>
 		</tr>
-		<tr><td><h3>Project</h3></td></tr>
+		<tr><td><h3>案件</h3></td></tr>
 		<tr th:each="obj : ${projData}"><td th:text="${obj}"></td></tr>
 		<tr><td>
-  		 	<h3>BirthDay</h3>
+  		 	<h3>生年月日</h3>
   		 </td></tr>
 		<tr><td>
   		 	<p th:text=${birthDate}></p>	
   		 </td></tr> 
   		 <tr><td>
-  		 	<h3>from When</h3>
+  		 	<h3>入社日</h3>
   		 </td></tr>
   		<tr><td>
   		 	<p th:text=${enterDate}></p>	
   		 </td></tr>
   		 <tr><td>
-  		 	<h3>to When</h3>
+  		 	<h3>退社日</h3>
   		 </td></tr>
   		 <tr><td>
   		 	<p th:text=${leaveDate}></p>	
