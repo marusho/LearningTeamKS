@@ -1,0 +1,60 @@
+@charset "UTF-8";
+
+.searchLabel {
+    width:120px;
+}
+.searchObject {
+    padding: 0 5px 0 10px;
+}
+.btnRight {
+    flaot: right;
+}
+
+.searchCond {
+    border-top: hidden #1e366a 1px;
+    border-bottom: hidden #1e366a 1px;
+    padding: 10px 0;
+    background-position-x: right;
+    margin-bottom: 10px;
+}
+
+.searchList {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+    border : solid #1e366a 1px;
+    border-spacing: 0;
+    border-collapse: collapse;
+    background: radial-gradient(#FFFEFF, #D7FFFE) !important;
+    padding: 0.5px;
+}
+
+.searchList>thead>tr>th, .searchList>tbody>tr>th, .searchList>tfoot>tr>th,
+.searchList>thead>tr>td, .searchList>tbody>tr>td, .searchList>tfoot>tr>td {
+    padding: 5px 6px;
+    line-height: 1.42857143;
+    border : solid #1e366a 1px;
+}
+
+img {
+    border-radius: 50%;  /* 角丸半径を50%にする(=円形にする) */
+    width:  180px;       /* ※縦横を同値に */
+    height: 180px;       /* ※縦横を同値に */
+}
+.motti {
+    border-radius: 50%;  /* 角丸半径を50%にする(=円形にする) */
+    width:  180px;       /* ※縦横を同値に */
+    height: 180px;       /* ※縦横を同値に */
+    margin: 50px;
+}
+.test {
+    background-color: #f3f3f3;
+    padding: 50px;
+}
+.title {
+    text-align: center;
+}
+.testImage {
+	margin: 20px;
+	text-align: center;
+}

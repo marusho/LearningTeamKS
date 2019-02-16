@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>TOP PAGE</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" media="all" th:href="@{/webjars/bootstrap/3.3.1/css/bootstrap.min.css}" />
+        <link href="../static/css/common.css" th:href="@{/css/common.css}"  rel="stylesheet">
+        <link href="../static/css/sampleCss.css" th:href="@{/css/sampleCss.css}"  rel="stylesheet">
+        <link href="../static/css/top.css" th:href="@{/css/top.css}"  rel="stylesheet">
+        <script th:inline="javascript" th:src="@{js/jquery-3.3.1.min.js}"></script>
+        <script th:inline="javascript" th:src="@{js/snowfall.jquery.js}"></script>
+    </head>
+    <body>
+        <div th:replace="layout :: header"></div>
+        <h1></h1>
+        <div class = test>
+            <h2 class = title>Top Page</h2>
+        </div>
+        <div class= testImage>
+          <!-- <img src="/img/kokami_team1.jpg"> -->
+          <a href= "info/1" target="blank">
+            <img class=motti src="/img/motti1.jpg">
+          </a>
+          <a href= "info/2" target="blank">
+            <img class=motti src="/img/jun1.jpg">
+          </a>
+          <a href= "info/3" target="blank">
+            <img class=motti src="/img/yosshi1.jpg">
+          </a>
+          <a href= "info/4" target="blank">
+            <img class=motti src="/img/aiko1.jpg">
+          </a>
+        </div>
+        <div th:if="${listSize}" th:with="s=${listSize}">
+            <p th:unless="${s==1}">
+            <ul>
+                <li th:each='i : ${#numbers.sequence(0, datalist.totalPages-1)}' th:class="(${i}==${datalist.getNumber()})? 'active' : ''" style="display:inline">
+                    <span th:if='${i}==${datalist.getNumber()}' th:text='${i+1}'>1</span>
+                    <a th:if='${i}!=${datalist.getNumber()}' th:href="@{/page?size=20&page={i}&userName={name}&departmentName={departmentName}&projectName={projectName}&gender={gender}(i=${i},name=${name},departmentName=${departmentName},projectName=${projectName},gender=${thisGender})}">
+                        <span th:text='${i+1}'>1</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <form action="#" th:action="@{/login}" method="POST">
+            <input type="submit" value="Sign out" />
+        </form>
+        <div th:replace="layout :: footer"></div>
+    </body>
+</html>s
