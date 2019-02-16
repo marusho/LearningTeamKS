@@ -109,6 +109,7 @@ public class InfoController {
 		mav.addObject("gender", gender);
 		mav.addObject("enteredate", mydata);
 		mav.addObject("engineerLevel", mydata.getEngineerLevel());
+		mav.addObject("imagePath", mydata.getImagePath() != null ? mydata.getImagePath(): "/img/no-image.png");
 
 		mav.addObject("orgData", listRecord);
 		mav.addObject("projData", listProj);

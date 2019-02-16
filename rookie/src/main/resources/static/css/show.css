@@ -35,3 +35,8 @@
     line-height: 1.42857143;
     border : solid #1e366a 1px;
 }
+
+.searchListImg {
+  width: 30px;
+  height: 30px;
+}

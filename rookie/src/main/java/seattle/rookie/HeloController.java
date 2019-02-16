@@ -313,6 +313,7 @@ public class HeloController {
 		mydata.setEmail(data.getEmail());
 		mydata.setBirthDate(data.getBirthday());
 		mydata.setEngineerLevel(data.getSelectedEngineerLevel());
+		mydata.setImagePath(data.getImagePath());
 
 		List<MiddleDepartment> datalist = recordrepo.findByUserId((int) data.getUserId());
 		for (int num = 0; num < datalist.size(); num++) {

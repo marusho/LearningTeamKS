@@ -11,21 +11,25 @@
  </head>
  <body>
   <div th:replace="layout :: header"></div>
- 
-  <h1>基本情報</h1>
+  <h1>Info</h1>
   	<table>
-  		<tr><td>
-  		 	<h3>氏名</h3>
-  		 </td></tr>
+  		<tr>
+  		<td>
+  		 	<h3>Name</h3>
+  		 </td>
+  		 <td rowspan=8>
+  		 <img class="searchListImg" th:src="@{${imagePath}}" alt="本人画像" th:title ="@{${userName}}">
+  		 </td>
+  		 </tr>
   		 <tr><td>
-  		 	<p th:text=${userName}></p>	
+  		 	<p th:text=${userName}></p>
   		 </td></tr>
   		 <tr><td>
   		 	<h3>性別</h3>
   		 </td></tr>
   		 <tr><td>
-  		 	<p th:text=${gender}></p>	
-  		 </td></tr> 
+  		 	<p th:text=${gender}></p>
+  		 </td></tr>
   		 <tr><td>
   		 	<h3>部署</h3>
   		 </td></tr>
@@ -38,32 +42,28 @@
   		 	<h3>生年月日</h3>
   		 </td></tr>
 		<tr><td>
-  		 	<p th:text=${birthday}></p>	
-  		 </td></tr> 
+  		 	<p th:text=${birthDate}></p>
+  		 </td></tr>
   		 <tr><td>
   		 	<h3>入社日</h3>
   		 </td></tr>
   		<tr><td>
-  		 	<p th:text=${enterDate}></p>	
+  		 	<p th:text=${enterDate}></p>
   		 </td></tr>
   		 <tr><td>
   		 	<h3>退社日</h3>
   		 </td></tr>
   		 <tr><td>
-  		 	<p th:text=${leaveDate}></p>	
+  		 	<p th:text=${leaveDate}></p>
   		 </td></tr>
   		 <tr><td>
   		 	<h3>Engineer Level</h3>
   		 </td></tr>
   		 <tr><td>
-  		 	<p th:text=${engineerLevel}></p>	
+  		 	<p th:text=${engineerLevel}></p>
   		 </td></tr>
-		
-		</table>
-	
- 
-  
- 
+
+	</table>
   <div th:replace="layout :: footer"></div>
  </body>
 </html>
