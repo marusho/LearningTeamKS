@@ -166,12 +166,12 @@ public class HeloController {
 				repository.saveAndFlush(mydata);
 				MiddleDepartment record = new MiddleDepartment();
 				record.setUserId((int) mydata.getUserId());
-				record.setDepartmentId(4);
+				record.setDepartmentId(1);
 				recordrepo.saveAndFlush(record);
 
 				MiddleProject middleproject = new MiddleProject();
 				middleproject.setUserId((int) mydata.getUserId());
-				middleproject.setProjectId(4);
+				middleproject.setProjectId(1);
 				middlerepo.saveAndFlush(middleproject);
 
 				// motivationテーブルにdateを持たせてinsert
@@ -341,47 +341,26 @@ public class HeloController {
 		// 二つ目の組織が選択されていた場合
 		if (data.getSelectedItem2() != "") {
 			Department orgData2 = orgrepo.findByDepartmentName(data.getSelectedItem2());
-			int orgId2 = orgData2.getDepartmentId();
-			MiddleDepartment record2 = new MiddleDepartment();
-			record2.setDepartmentId(orgId2);
-			record2.setUserId((int) data.getUserId());
-			recordrepo.saveAndFlush(record2);
+			saveDepartmentName(orgData2, data);
 		}
 
 		// 三つ目の組織が選択されていた場合
 		if (data.getSelectedItem3() != "") {
 			Department orgData3 = orgrepo.findByDepartmentName(data.getSelectedItem3());
-			int orgId3 = orgData3.getDepartmentId();
-			MiddleDepartment record3 = new MiddleDepartment();
-			record3.setDepartmentId(orgId3);
-			record3.setUserId((int) data.getUserId());
-			recordrepo.saveAndFlush(record3);
+			saveDepartmentName(orgData3, data);
 		}
 
 		if (data.getSelectedProject1() != "") {
 			Project project1 = projrepo.findByProjectName(data.getSelectedProject1());
-			int projId1 = project1.getProjectId();
-			MiddleProject mp1 = new MiddleProject();
-			mp1.setProjectId(projId1);
-			mp1.setUserId((int) data.getUserId());
-			middlerepo.saveAndFlush(mp1);
+			saveProjectName(project1, data);
 		}
 		if (data.getSelectedProject2() != "") {
 			Project project2 = projrepo.findByProjectName(data.getSelectedProject2());
-			int projId2 = project2.getProjectId();
-			MiddleProject mp2 = new MiddleProject();
-			mp2.setProjectId(projId2);
-			mp2.setUserId((int) data.getUserId());
-
-			middlerepo.saveAndFlush(mp2);
+			saveProjectName(project2, data);
 		}
 		if (data.getSelectedProject3() != "") {
 			Project project3 = projrepo.findByProjectName(data.getSelectedProject3());
-			int projId3 = project3.getProjectId();
-			MiddleProject mp3 = new MiddleProject();
-			mp3.setProjectId(projId3);
-			mp3.setUserId((int) data.getUserId());
-			middlerepo.saveAndFlush(mp3);
+			saveProjectName(project3, data);
 		}
 
 		repository.saveAndFlush(mydata);
@@ -548,5 +527,18 @@ public class HeloController {
 		middleDepartment.setDepartmentId(departmentId);
 		middleDepartment.setUserId((int) data.getUserId());
 		recordrepo.saveAndFlush(middleDepartment);
+	}
+	
+	/**
+	 * プロジェクト名保存
+	 * @param project
+	 * @param data
+	 */
+	private void saveProjectName(Project project, UserForm data) {
+		int projId1 = project.getProjectId();
+		MiddleProject mp1 = new MiddleProject();
+		mp1.setProjectId(projId1);
+		mp1.setUserId((int) data.getUserId());
+		middlerepo.saveAndFlush(mp1);
 	}
 }
