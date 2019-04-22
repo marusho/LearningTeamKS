@@ -222,26 +222,17 @@ public class HeloController {
 		if (gender.equals(women)) {
 			Page<MyData> result = repository.findBySearchGender1(pageable, userNameKey, projectNameKey,
 					departmentNameKey);
-			mav.addObject("datalist", result);
-			int listSize = result.getTotalPages();
-			mav.addObject("listSize", listSize);
-			mav.setViewName("show");
+			researchGender(mav, result);
 			// 男性
 		} else if (gender.equals(men)) {
 			Page<MyData> result = repository.findBySearchGender0(pageable, userNameKey, projectNameKey,
 					departmentNameKey);
-			mav.addObject("datalist", result);
-			int listSize = result.getTotalPages();
-			mav.addObject("listSize", listSize);
-			mav.setViewName("show");
-			// All
+			researchGender(mav, result);
+;			// All
 		} else if (gender.equals(empty)) {
 			Page<MyData> result = repository.findBySearchGender0And1(pageable, userNameKey, projectNameKey,
 					departmentNameKey);
-			mav.addObject("datalist", result);
-			int listSize = result.getTotalPages();
-			mav.addObject("listSize", listSize);
-			mav.setViewName("show");
+			researchGender(mav, result);
 		} else {
 			mav.setViewName("show");
 		}
@@ -313,7 +304,7 @@ public class HeloController {
 		mydata.setEmail(data.getEmail());
 		mydata.setBirthDate(data.getBirthday());
 		mydata.setEngineerLevel(data.getSelectedEngineerLevel());
-		mydata.setImagePath(data.getImagePath());
+//		mydata.setImagePath(data.getImagePath());
 
 		List<MiddleDepartment> datalist = recordrepo.findByUserId((int) data.getUserId());
 		for (int num = 0; num < datalist.size(); num++) {
@@ -344,11 +335,7 @@ public class HeloController {
 		// 一つ目の組織が選択されていた場合
 		if (data.getSelectedItem1() != "") {
 			Department orgData1 = orgrepo.findByDepartmentName(data.getSelectedItem1());
-			int orgId1 = orgData1.getDepartmentId();
-			MiddleDepartment record1 = new MiddleDepartment();
-			record1.setDepartmentId(orgId1);
-			record1.setUserId((int) data.getUserId());
-			recordrepo.saveAndFlush(record1);
+			saveDepartmentName(orgData1, data);
 		}
 
 		// 二つ目の組織が選択されていた場合
@@ -537,5 +524,29 @@ public class HeloController {
 			selectMap.put(j, list[i]);
 		}
 		return selectMap;
+	}
+	
+	/**
+	 * 性別検索
+	 * @param mav
+	 * @param result
+	 */
+	private void researchGender(ModelAndView mav, Page<MyData> result) {
+		mav.addObject("datalist", result);
+		int listSize = result.getTotalPages();
+		mav.addObject("listSize", listSize);
+		mav.setViewName("show");
+	}
+	/**
+	 * 部署保存
+	 * @param department
+	 * @param data
+	 */
+	private void saveDepartmentName(Department department, UserForm data) {
+		int departmentId = department.getDepartmentId();
+		MiddleDepartment middleDepartment = new MiddleDepartment();
+		middleDepartment.setDepartmentId(departmentId);
+		middleDepartment.setUserId((int) data.getUserId());
+		recordrepo.saveAndFlush(middleDepartment);
 	}
 }
