@@ -21,7 +21,7 @@ public interface MyDataRepository extends JpaRepository<MyData, Long> {
 	// ネイティブクエリ文:ユーザーテーブルと中間プロジェクトテーブルの結合テーブル
 	// MyDataエンティティをuと設定し、uの名前を選択する
 	@Query("select distinct u from MyData u " + "left outer join MiddleProject mp on u.userId = mp.userId "
-			+ "left outer join Project p on mp.projectId = p.projectId "
+			+ "left outer join ProjectEntity p on mp.projectId = p.projectId "
 			+ "left outer join MiddleDepartment md on u.userId = md.userId "
 			+ "left outer join Department d on md.departmentId = d.departmentId " + "where u.gender = 1 "
 			+ "and u.deleteFlag = 0 " + "and mp.deleteFlag = 0 " + "and md.deleteFlag = 0 " + "and u.userName like ?1 "
@@ -30,7 +30,7 @@ public interface MyDataRepository extends JpaRepository<MyData, Long> {
 			String departmentName);
 
 	@Query("select distinct u from MyData u " + "left outer join MiddleProject mp on u.userId = mp.userId "
-			+ "left outer join Project p on mp.projectId = p.projectId "
+			+ "left outer join ProjectEntity p on mp.projectId = p.projectId "
 			+ "left outer join MiddleDepartment md on u.userId = md.userId "
 			+ "left outer join Department d on md.departmentId = d.departmentId " + "where u.gender = 0 "
 			+ "and u.deleteFlag = 0 " + "and mp.deleteFlag = 0 " + "and md.deleteFlag = 0 " + "and u.userName like ?1 "
@@ -39,7 +39,7 @@ public interface MyDataRepository extends JpaRepository<MyData, Long> {
 			String departmentName);
 
 	@Query("select distinct u from MyData u " + "left outer join MiddleProject mp on u.userId = mp.userId "
-			+ "left outer join Project p on mp.projectId = p.projectId "
+			+ "left outer join ProjectEntity p on mp.projectId = p.projectId "
 			+ "left outer join MiddleDepartment md on u.userId = md.userId "
 			+ "left outer join Department d on md.departmentId = d.departmentId " + "where u.userName like ?1 "
 			+ "and u.deleteFlag = 0 " + "and mp.deleteFlag = 0 " + "and md.deleteFlag = 0 "

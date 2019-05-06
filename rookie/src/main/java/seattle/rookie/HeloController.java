@@ -35,7 +35,7 @@ import seattle.rookie.model.MiddleDepartment;
 import seattle.rookie.model.MiddleProject;
 import seattle.rookie.model.Motivation;
 import seattle.rookie.model.MyData;
-import seattle.rookie.model.Project;
+import seattle.rookie.model.ProjectEntity;
 import seattle.rookie.model.UserCreateForm;
 import seattle.rookie.model.UserForm;
 import seattle.rookie.model.UserPass;
@@ -255,7 +255,7 @@ public class HeloController {
 		mav.addObject("genderList", GENDER_LIST);
 		return mav;
 	}
-	
+
 
 	// 編集確認画面
 	@RequestMapping(value = "/editconfirm", method = RequestMethod.POST)
@@ -333,7 +333,7 @@ public class HeloController {
 		}
 
 		if (data.getSelectedProject1() != "") {
-			Project project1 = projrepo.findByProjectName(data.getSelectedProject1());
+			ProjectEntity project1 = projrepo.findByProjectName(data.getSelectedProject1());
 			int projId1 = project1.getProjectId();
 			MiddleProject mp1 = new MiddleProject();
 			mp1.setProjectId(projId1);
@@ -372,7 +372,7 @@ public class HeloController {
 		}
 
 		if (data.getSelectedProject1() != "") {
-			Project project1 = projrepo.findByProjectName(data.getSelectedProject1());
+			ProjectEntity project1 = projrepo.findByProjectName(data.getSelectedProject1());
 			int projId1 = project1.getProjectId();
 			MiddleProject mp1 = new MiddleProject();
 			mp1.setProjectId(projId1);
@@ -380,7 +380,7 @@ public class HeloController {
 			middlerepo.saveAndFlush(mp1);
 		}
 		if (data.getSelectedProject2() != "") {
-			Project project2 = projrepo.findByProjectName(data.getSelectedProject2());
+			ProjectEntity project2 = projrepo.findByProjectName(data.getSelectedProject2());
 			int projId2 = project2.getProjectId();
 			MiddleProject mp2 = new MiddleProject();
 			mp2.setProjectId(projId2);
@@ -389,7 +389,7 @@ public class HeloController {
 			middlerepo.saveAndFlush(mp2);
 		}
 		if (data.getSelectedProject3() != "") {
-			Project project3 = projrepo.findByProjectName(data.getSelectedProject3());
+			ProjectEntity project3 = projrepo.findByProjectName(data.getSelectedProject3());
 			int projId3 = project3.getProjectId();
 			MiddleProject mp3 = new MiddleProject();
 			mp3.setProjectId(projId3);
@@ -528,7 +528,7 @@ public class HeloController {
 		long num = projrepo.count();
 		String list[] = new String[(int) num];
 		for (int i = 0; i < num; i++) {
-			Project data = projrepo.findByProjectId(1);
+			ProjectEntity data = projrepo.findByProjectId(1);
 			String projName = data.getProjectName();
 			list[i] = projName;
 		}

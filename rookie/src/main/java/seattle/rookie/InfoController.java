@@ -18,7 +18,7 @@ import seattle.rookie.model.Department;
 import seattle.rookie.model.MiddleDepartment;
 import seattle.rookie.model.MiddleProject;
 import seattle.rookie.model.MyData;
-import seattle.rookie.model.Project;
+import seattle.rookie.model.ProjectEntity;
 import seattle.rookie.repositories.DepartmentRepository;
 import seattle.rookie.repositories.MiddleDepartmentRepository;
 import seattle.rookie.repositories.MiddleProjectRepository;
@@ -67,7 +67,7 @@ public class InfoController {
 		List<String> projData = new ArrayList<String>();
 		for (int num = 0; num < middle.size(); num++) {
 			int i = middle.get(num).getProjectId();
-			Project proj = projrepo.findByProjectId(i);
+			ProjectEntity proj = projrepo.findByProjectId(i);
 			if (!(proj.getProjectName().equals("無所属"))) {
 				projData.add(proj.getProjectName());
 			}

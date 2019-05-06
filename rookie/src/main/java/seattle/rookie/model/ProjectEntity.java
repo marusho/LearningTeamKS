@@ -11,25 +11,19 @@ import javax.persistence.Table;
 
 import lombok.Data;
 
-
-
 @Entity
 @Table(name = "project")
 @Data
-public class Project {
+public class ProjectEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="projectId")
+	@Column(name="project_id")
 	public int projectId;
 
-	@Column(name="projectName")
+	@Column(name="project_name")
 	private String projectName;
 
-//	@OneToMany(mappedBy = "project")
-//	private List<MiddleProject> middleProjects;
-
-	// getter
 	@Column
 	private Date registered_at;
 
@@ -44,6 +38,15 @@ public class Project {
 
 	@Column
 	private float version;
+
+	@Column(name="expansion_possibilities",nullable = true)
+	public int expansionPossibilities;
+
+	@Column(name="increase_number",nullable = true)
+	public int increaseNumber;
+
+	@Column(name="sales_representative",nullable = true)
+	public int salesRepresentative;
 
 	public int getProjectId() {
 		return projectId;
@@ -101,5 +104,46 @@ public class Project {
 		this.version = version;
 	}
 
+	/**
+	 * @return expansionPossibilities
+	 */
+	public int getExpansionPossibilities() {
+		return expansionPossibilities;
+	}
+
+	/**
+	 * @param expansionPossibilities セットする expansionPossibilities
+	 */
+	public void setExpansionPossibilities(int expansionPossibilities) {
+		this.expansionPossibilities = expansionPossibilities;
+	}
+
+	/**
+	 * @return increaseNumber
+	 */
+	public int getIncreaseNumber() {
+		return increaseNumber;
+	}
+
+	/**
+	 * @param increaseNumber セットする increaseNumber
+	 */
+	public void setIncreaseNumber(int increaseNumber) {
+		this.increaseNumber = increaseNumber;
+	}
+
+	/**
+	 * @return salesRepresentative
+	 */
+	public int getSalesRepresentative() {
+		return salesRepresentative;
+	}
+
+	/**
+	 * @param salesRepresentative セットする salesRepresentative
+	 */
+	public void setSalesRepresentative(int salesRepresentative) {
+		this.salesRepresentative = salesRepresentative;
+	}
 
 }

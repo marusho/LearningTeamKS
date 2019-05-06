@@ -3,14 +3,14 @@ package seattle.rookie.repositories;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import seattle.rookie.model.Project;
+import seattle.rookie.model.ProjectEntity;
 
 @Repository
-public interface ProjectRepository extends JpaRepository<Project,Long>{
+public interface ProjectRepository extends JpaRepository<ProjectEntity,Long>{
 
-	public Project findByProjectId(int projectid);
+	public ProjectEntity findByProjectId(int projectid);
 	public String findProjectNameByProjectId(int projectid);
-	public Project findByProjectName(String projectName);
+	public ProjectEntity findByProjectName(String projectName);
 	
 
 }

@@ -78,3 +78,23 @@ h1 {
 /* 背景が暗いとき用のアイコン色 */
 .material-icons.md-light { color: rgba(255, 255, 255, 1); }
 .material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
+
+
+.accordion1 {text-align: center;}
+.accordion1 .inner {display: none;}
+.accordion1 p{cursor: pointer; padding: 10px;}
+.accordion1 .inner li.content1-1{background: #c0c0c0;}
+
+#acMenu {
+margin-bottom: 0px!important;
+}
+#acMenu dt{
+display:block;
+text-align:center;
+cursor:pointer;
+}
+#acMenu dd{
+background:#8080ff;
+text-align:center;
+display:none;
+}

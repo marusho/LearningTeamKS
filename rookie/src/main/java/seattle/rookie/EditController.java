@@ -21,7 +21,7 @@ import seattle.rookie.model.Department;
 import seattle.rookie.model.MiddleDepartment;
 import seattle.rookie.model.MiddleProject;
 import seattle.rookie.model.MyData;
-import seattle.rookie.model.Project;
+import seattle.rookie.model.ProjectEntity;
 import seattle.rookie.model.UserForm;
 import seattle.rookie.repositories.DepartmentRepository;
 import seattle.rookie.repositories.MiddleDepartmentRepository;
@@ -43,7 +43,7 @@ public class EditController {
 	ProjectRepository projectRepository;
 	@PersistenceContext
 	EntityManager entityManager;
-	
+
 	/**
 	 * 編集画面
 	 * @param userId
@@ -92,7 +92,7 @@ public class EditController {
 	}
 	/**
 	 * 組織マスタ取得
-	 * @return selectMap 
+	 * @return selectMap
 	 */
 	private Map<Integer, String> getSelectedItems() {
 		// ハッシュマップでプルダウンに送るデータを作成
@@ -111,6 +111,8 @@ public class EditController {
 			int j = i + 1;
 			selectMap.put(j, list[i]);
 		}
+		int[] aa = {1,2,3,4};
+		String[] s = {"sss","dd"};
 		return selectMap;
 	}
 
@@ -124,7 +126,7 @@ public class EditController {
 		long num = projectRepository.count();
 		String list[] = new String[(int) num];
 		for (int i = 0; i < num; i++) {
-			Project data = projectRepository.findByProjectId(1);
+			ProjectEntity data = projectRepository.findByProjectId(1);
 			String projName = data.getProjectName();
 			list[i] = projName;
 		}
@@ -134,7 +136,7 @@ public class EditController {
 		}
 		return selectMap;
 	}
-	
+
 	/**
 	 * 組織名リスト取得
 	 * @param userId
@@ -174,7 +176,7 @@ public class EditController {
 			}
 		return org;
 	}
-	
+
 	/**
 	 * 案件情報取得
 	 * TODO 重複なくしたい

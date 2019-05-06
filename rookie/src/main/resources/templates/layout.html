@@ -1,43 +1,42 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	</head>
+<head>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
 
 
-	<th:block th:replace="${links}" />
+<th:block th:replace="${links}" />
 
-	<!-- https://material.io/tools/icons/ -->
-	<header th:fragment="header">
-		<table class="navArea">
-			<tbody class="navTbodyArea">
-				<tr class="menuTrArea">
-					<td colspan="5" class="menuTdArea">Menu</td>
-				</tr>
-				<tr>
-					<td>
-						<!-- <i class="material-icons">4k</i> -->
-						<a class="menuAnchor" th:href="@{/page?size=&page=0&userName=&departmentName=&projectName=&gender=}">トップページ</a>
-					</td>
-					<td>
-						<a class="menuAnchor" th:href="@{/create}">ユーザ作成</a>
-					</td>
-					<td>
-						<a class="menuAnchor" th:href="@{/change}">パスワード変更</a>
-					</td>
-					<td>
-						<a class="menuAnchor" th:href="@{/evaluations}">評価シート</a>
-					</td>
-					<td>
-						<a class="menuAnchor" th:href="@{/editmotivation}">モチベーション編集</a>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-	</header>
+<!-- https://material.io/tools/icons/ -->
+<header th:fragment="header">
+	<table class="navArea">
+		<tbody class="navTbodyArea">
+			<tr class="menuTrArea">
+				<td colspan="6" class="menuTdArea">Menu</td>
+			</tr>
+			<tr>
+				<td>
+					<!-- <i class="material-icons">4k</i> --> <a class="menuAnchor"
+					th:href="@{/page?size=&page=0&userName=&departmentName=&projectName=&gender=}">トップページ</a>
+				</td>
+				<td><a class="menuAnchor" th:href="@{/create}">ユーザ作成</a></td>
+				<td><a class="menuAnchor" th:href="@{/change}">パスワード変更</a></td>
+				<td><a class="menuAnchor" th:href="@{/evaluations}">評価シート</a></td>
+				<td><a class="menuAnchor" th:href="@{/editmotivation}">モチベーション編集</a>
+				</td>
+				<td>
+					<dl id="acMenu">
+						<dt>管理メニュー</dt>
+						<dd><a class="menuAnchor" th:href="@{/projectList?customerName=&projectName=}">プロジェクト管理</a></dd>
+					</dl>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</header>
 
-	<footer th:fragment="footer">
-		<p>Copyright ©TeamFukabori. All Rights Reserved.</p>
-	</footer>
+<footer th:fragment="footer">
+	<p>Copyright ©TeamFukabori. All Rights Reserved.</p>
+</footer>
 </html>
 

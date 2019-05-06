@@ -13,6 +13,7 @@
 	crossorigin="anonymous">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script th:src="@{/js/common.js}"></script>
 <link href=".../static/css/careervisionEdit.css" th:href="@{/css/careervisionEdit.css}"
 	rel="stylesheet">
 <link href=".../static/css/careervisionShow.css" th:href="@{/css/careervisionShow.css}"
@@ -27,11 +28,11 @@
 	<div th:replace="layout :: header"></div>
 	<script th:inline="javascript">
 	/*<![CDATA[*/
-		$(function() { 
+		$(function() {
 			/* マネジメントチェックボックスの選択済み項目色付け */
 			var managementVs = /*[[${ManagementVisions}]]*/;
 			var masterMVs = /*[[${MasterManagementVisions}]]*/;
-			
+
 			/* managementKeyはインデックス */
 			for (managementKey in managementVs) {
 				/* masterKeyはインデックス(配列) */
@@ -46,7 +47,7 @@
 			/* スペシャリストチェックボックスの選択済み項目色付け */
 			var specialistVs = /*[[${SpecialistVisions}]]*/;
 			var masterSVs = /*[[${MasterSpecialistVisions}]]*/;
-			
+
 			/* specialistKeyはインデックス */
 			for (specialistKey in specialistVs) {
 				/* masterKeyはインデックス(配列) */
@@ -61,7 +62,7 @@
 			/* セクターチェックボックスの選択済み項目色付け */
 			var sectorVs = /*[[${SectorVisions}]]*/;
 			var masterSeVs = /*[[${MasterSectorVisions}]]*/;
-			
+
 			/* sectorKeyはインデックス */
 			for (sectorKey in sectorVs) {
 				/* masterKeyはインデックス(配列) */
@@ -73,8 +74,8 @@
 					}
 				}
 			}
-			
-		}); 
+
+		});
 	/*]]>*/
 	</script>
 	<h1 class="careerVision">Career Vision Info</h1>
