@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>プロジェクト一覧</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<link rel="stylesheet" media="all" th:href="@{/webjars/bootstrap/3.3.1/css/bootstrap.min.css}" />
+ 		<link href="../static/css/common.css" th:href="@{/css/common.css}"  rel="stylesheet">
+		<link href="../static/css/sampleCss.css" th:href="@{/css/sampleCss.css}"  rel="stylesheet">
+		<link href="../static/css/show.css" th:href="@{/css/show.css}"  rel="stylesheet">
+		<script th:inline="javascript" th:src="@{js/jquery-3.3.1.min.js}"></script>
+		<script th:inline="javascript" th:src="@{js/snowfall.jquery.js}"></script>
+		<script th:src="@{/js/common.js}"></script>
+		<script type="text/javascript">
+			$(function() {
+				$(document).snowfall();
+			});
+		</script>
+	</head>
+	<body>
+		<div th:replace="layout :: header"></div>
+		<h1>プロジェクト一覧</h1>
+		<div>
+			<form action="/projectList" th:action="@{/projectList}" method="get">
+				<!-- <table class="table"> -->
+				<table class=searchCond th:inline="text">
+					<tr>
+						<td class="searchLabel">
+							お客様名
+		 				</td>
+						<td class="searchObject">
+							<input type="text" name="customerName">
+		 				</td>
+						<td class="searchLabel">
+							プロジェクト名
+						</td>
+						<td class="searchObject">
+							<input type="text" name="projectName">
+						</td>
+					</tr>
+					<tr>
+						<td class="btnRight">
+							<input type="submit" value="Search">
+						</td>
+					</tr>
+				</table>
+				<table class="searchList">
+					<thead>
+						<tr>
+							<th>No</th>
+							<th style="display:none;">ID</th>
+							<th>お客様名</th>
+							<th>プロジェクト名</th>
+							<th>拡大可能性</th>
+							<th>次月増減員人数予定</th>
+							<th>担当営業</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="obj, stat : ${projectList}">
+							<td th:text="${stat.count}"></td>
+							<td th:text="${obj.projectId}" style="display:none;"></td>
+							<td th:text="${obj.customerName}"></td>
+							<td th:text="${obj.projectName}"></td>
+							<td th:text="${obj.expansionPossibilities}"></td>
+							<td th:text="${obj.increaseNumber}"></td>
+							<td th:text="${obj.salesRepresentativeName}"></td>
+						</tr>
+						<tr th:unless="${projectList}" >
+							<td colspan="6">NO DATA</td>
+						</tr>
+					</tbody>
+				</table>
+			</form>
+		</div>
+		<div th:if="${listSize}" th:with="s=${listSize}">
+			<p th:unless="${s==1}">
+			<ul>
+				<li th:each='i : ${#numbers.sequence(0, datalist.totalPages-1)}' th:class="(${i}==${datalist.getNumber()})? 'active' : ''" style="display:inline">
+					<span th:if='${i}==${datalist.getNumber()}' th:text='${i+1}'>1</span>
+					<a th:if='${i}!=${datalist.getNumber()}' th:href="@{/page?size=20&page={i}&userName={name}&departmentName={departmentName}&projectName={projectName}&gender={gender}(i=${i},name=${name},departmentName=${departmentName},projectName=${projectName},gender=${thisGender})}">
+						<span th:text='${i+1}'>1</span>
+					   </a>
+				</li>
+			</ul>
+		</div>
+
+		<form action="#" th:action="@{/login}" method="POST">
+   			<input type="submit" value="Sign out" />
+		</form>
+		<div th:replace="layout :: footer"></div>
+	</body>
+</html>
