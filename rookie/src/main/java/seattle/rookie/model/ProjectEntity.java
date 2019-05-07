@@ -48,6 +48,9 @@ public class ProjectEntity {
 	@Column(name="sales_representative",nullable = true)
 	public int salesRepresentative;
 
+	@Column(name="customer_name",nullable = true)
+	public String customerName;
+
 	public int getProjectId() {
 		return projectId;
 	}
@@ -144,6 +147,20 @@ public class ProjectEntity {
 	 */
 	public void setSalesRepresentative(int salesRepresentative) {
 		this.salesRepresentative = salesRepresentative;
+	}
+
+	/**
+	 * @return customerName
+	 */
+	public String getCustomerName() {
+		return customerName;
+	}
+
+	/**
+	 * @param customerName セットする customerName
+	 */
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
 	}
 
 }
